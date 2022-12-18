@@ -18,7 +18,7 @@ public class MyApplication extends Application {
         java.util.Map config = new java.util.HashMap();
         config.put("cloud_name", "du7sfuuey");
         config.put("api_key","512743237357516");
-        config.put("api_secret","QR8tyj6HezL9s4gWZwWTB9ffxDQadmin");
+        config.put("api_secret","QR8tyj6HezL9s4gWZwWTB9ffxDQ");
 
 
         com.cloudinary.android.MediaManager.init(this, config);

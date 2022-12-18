@@ -102,7 +102,7 @@ public class QLDonHangActivity extends AppCompatActivity {
                             }
                         },
                         throwable -> {
-                            android.widget.Toast.makeText(getApplicationContext(),"Không kết nối được server", android.widget.Toast.LENGTH_LONG).show();
+                            android.widget.Toast.makeText(getApplicationContext(),"Không kết nối được server ", android.widget.Toast.LENGTH_LONG).show();
                         }
                 ));
 

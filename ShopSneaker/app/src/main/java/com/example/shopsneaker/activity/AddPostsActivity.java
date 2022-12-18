@@ -26,6 +26,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.shopsneaker.R;
+import com.example.shopsneaker.model.Images;
 import com.example.shopsneaker.model.Market;
 import com.example.shopsneaker.model.uploadModel;
 import com.example.shopsneaker.retrofit.ApiBanGiay;
@@ -63,7 +64,9 @@ public class AddPostsActivity extends AppCompatActivity {
     ImageView selectedImage;
     CircularProgressButton btnSubmit;
     List<Uri> files = new ArrayList<>();
+    List<Images> listUrl= new java.util.ArrayList<>();
     List<MultipartBody.Part> list = new ArrayList<>();
+    Uri Url;
 
     private LinearLayout parentLinearLayout;
 
@@ -126,26 +129,33 @@ public class AddPostsActivity extends AppCompatActivity {
         String str_size = edtsize.getText().toString().trim();
         String str_mota = edtdescription.getText().toString().trim();
         requestPermission();
-        uploadImages();
+        //uploadImages();
         Log.d("test", new Gson().toJson(list));
 
         if(TextUtils.isEmpty(str_ten) || TextUtils.isEmpty(str_gia)  || TextUtils.isEmpty(str_size) || TextUtils.isEmpty(str_mota)){
             Toast.makeText(getApplicationContext(),"Nhập đầy đủ thông tin",Toast.LENGTH_LONG).show();
+        }else if (Integer.parseInt(str_gia)<0) {
+            Toast.makeText(getApplicationContext(),"Giá phải lớn hơn 0",Toast.LENGTH_LONG).show();
+        }else if (Integer.parseInt(str_size)<38||Integer.parseInt(str_size)>48) {
+            Toast.makeText(getApplicationContext(),"Size phải trong khoảng [38,48]",Toast.LENGTH_LONG).show();
         }else {
-            compositeDisposable.add(apiBanGiay.insertPosts(str_ten,str_gia,str_size,str_mota,id, new Gson().toJson(list) ).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            marketModel -> {
-                                if(marketModel.isSuccess()){
+                compositeDisposable.add(apiBanGiay.insertPosts(str_ten,str_gia,str_size,str_mota,id, new Gson().toJson(listUrl) ).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                marketModel -> {
+                                    if(marketModel.isSuccess()){
 
-                                    Toast.makeText(getApplicationContext(),"Thành công", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(),"Thành công", Toast.LENGTH_LONG).show();
+                                        finish();
+                                    }
+                                },
+                                throwable -> {
+                                    finish();
+                                    //Toast.makeText(getApplicationContext(),"Không kết nối được server", Toast.LENGTH_LONG).show();
                                 }
-                            },
-                            throwable -> {
-                                Toast.makeText(getApplicationContext(),"Không kết nối được server", Toast.LENGTH_LONG).show();
-                            }
-                    ));
-        }
+                        ));
+            }
+
     }
     private void actionToolbar() {
         setSupportActionBar(toolbar);
@@ -211,29 +221,77 @@ public class AddPostsActivity extends AppCompatActivity {
                     if (resultCode == RESULT_OK && data != null) {
 
                         Bitmap img = (Bitmap) data.getExtras().get("data");
-                        selectedImage.setImageBitmap(img);
-                        Picasso.get().load(getImageUri(AddPostsActivity.this,img)).into(selectedImage);
+                        //selectedImage.setImageBitmap(img);
+                        //Picasso.get().load(getImageUri(AddPostsActivity.this,img)).into(selectedImage);
 
-                        String imgPath = FileUtils.getPath(AddPostsActivity.this,getImageUri(AddPostsActivity.this,img));
+                        //String imgPath = FileUtils.getPath(AddPostsActivity.this,getImageUri(AddPostsActivity.this,img));
+                        Url  = getImageUri(AddPostsActivity.this,img);
 
-                        files.add(Uri.parse(imgPath));
-                        Log.e("image", imgPath);
+                        //files.add(Uri.parse(imgPath));
+
+                        uploadImages(Url);
+                       // Log.e("image", imgPath);
                     }
 
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
                         Uri img = data.getData();
-                        Picasso.get().load(img).into(selectedImage);
-
-                        String imgPath = FileUtils.getPath(AddPostsActivity.this,img);
-
-                        files.add(Uri.parse(imgPath));
-                        Log.e("image", imgPath);
+//                        Picasso.get().load(img).into(selectedImage);
+//
+//                        String imgPath = FileUtils.getPath(AddPostsActivity.this,img);
+//
+//                        files.add(Uri.parse(imgPath));
+//                        Url= Uri.parse(imgPath);
+                        uploadImages(img);
+                        //Log.e("image", imgPath);
 
                     }
                     break;
             }
+
+
+        }
+    }
+
+    private void uploadImages(Uri u) {
+        try {
+
+            com.cloudinary.android.MediaManager.get().upload(u).option("folder","ShoesShop/Post/").callback(new com.cloudinary.android.callback.UploadCallback() {
+                @Override
+                public void onStart(String requestId) {
+                    //binding.anh.setText("Start");
+                }
+
+                @Override
+                public void onProgress(String requestId, long bytes, long totalBytes) {
+                    //binding.anh.setText("InProgess");
+                }
+
+                @Override
+                public void onSuccess(String requestId, java.util.Map resultData) {
+                    listUrl.add(new Images(0,0,resultData.get("url").toString()));
+                    com.bumptech.glide.Glide.with(getApplicationContext()).load(resultData.get("url").toString()).into(selectedImage);
+                    android.widget.Toast.makeText(getApplicationContext(), "Upload ảnh thành công", android.widget.Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void onError(String requestId, com.cloudinary.android.callback.ErrorInfo error) {
+
+                    android.widget.Toast.makeText(getApplicationContext(), "Đã xảy ra lỗi, vui lòng thao tác lại", android.widget.Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void onReschedule(String requestId, com.cloudinary.android.callback.ErrorInfo error) {
+
+                    android.widget.Toast.makeText(getApplicationContext(), "Đã xảy ra lỗi, vui lòng thao tác lại", android.widget.Toast.LENGTH_SHORT).show();
+
+                }
+            }).dispatch();
+        }catch (Exception ex){
+            Toast.makeText(this,"ex"+ex, android.widget.Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -247,7 +305,7 @@ public class AddPostsActivity extends AppCompatActivity {
     }
 
     //===== Upload files to server
-    public void uploadImages(){
+    /*public void uploadImages(){
 
         btnSubmit.startAnimation();
 
@@ -290,7 +348,7 @@ public class AddPostsActivity extends AppCompatActivity {
                 Log.i("my",t.getMessage());
             }
         });
-    }
+    }*/
 
     @NonNull
     private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
@@ -324,7 +382,7 @@ public class AddPostsActivity extends AppCompatActivity {
         switch (requestCode){
             case REQUEST_CODE_ASK_PERMISSIONS:
                 if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                    uploadImages();
+                    addImage();
                 }
                 else {
                     Toast.makeText(AddPostsActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();

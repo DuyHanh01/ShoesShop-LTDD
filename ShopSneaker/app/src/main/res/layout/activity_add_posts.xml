@@ -42,6 +42,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
+            android:inputType="number"
             android:hint="Giá sản phẩm"
             android:padding="5dp" />
 
@@ -53,6 +54,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
             android:hint="Size"
+            android:inputType="number"
             android:padding="5dp" />
 
         <EditText

@@ -297,7 +297,7 @@ public class AddProduct extends AppCompatActivity {
 
        try {
            Uri uri = Uri.parse(mediaPath);
-           com.cloudinary.android.MediaManager.get().upload(uri).option("folder","ShoesShop").callback(new com.cloudinary.android.callback.UploadCallback() {
+           com.cloudinary.android.MediaManager.get().upload(uri).option("folder","ShoesShop/Shoes/").callback(new com.cloudinary.android.callback.UploadCallback() {
                @Override
                public void onStart(String requestId) {
                    //binding.anh.setText("Start");
