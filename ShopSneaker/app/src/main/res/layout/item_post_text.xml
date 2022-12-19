@@ -19,7 +19,7 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/txtCustomerName"
-                android:textColor="@color/teal_700"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="Trường"
                 android:textSize="25dp"
                 android:textStyle="bold"

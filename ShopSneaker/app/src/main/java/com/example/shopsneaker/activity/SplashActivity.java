@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.model.User;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -21,7 +21,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SplashActivity extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     Intent intent;
     String username;
     User x;
@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Paper.init(this);
         user = Paper.book().read("user");
         if(user !=null){

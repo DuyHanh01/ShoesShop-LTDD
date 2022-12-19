@@ -5,9 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/background"
     tools:context=".activity.MainActivity">
-
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -33,57 +32,6 @@
             tools:ignore="MissingConstraints">
 
         </ListView>
-
-        <!--<View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"/>
-        <LinearLayout
-            android:id="@+id/linearLayout_XemDiaChiCuaHang"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_ggmap_on_foreground"
-                />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Địa chỉ cửa hàng:"
-                    android:textSize="19dp"
-                    android:textColor="#000"
-                    android:maxLines="1">
-
-                </TextView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tp Thủ Đức - Tp HCM"
-                    android:textSize="18dp"
-                    android:textColor="#000"
-                    android:maxLines="2">
-
-                </TextView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="(Xem địa chỉ cửa hàng)"
-                    android:textSize="15dp"
-                    android:textColor="@color/red"
-                    android:padding="5dp"
-                    android:layout_gravity="right">
-
-                </TextView>
-            </LinearLayout>
-
-        </LinearLayout>-->
     </LinearLayout>
 
 

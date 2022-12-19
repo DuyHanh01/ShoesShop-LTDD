@@ -2,7 +2,6 @@ package com.example.shopsneaker.Fragment;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.example.shopsneaker.R.layout.fragment_shoes;
 import static com.example.shopsneaker.R.layout.fragment_shoessale;
 
 import android.view.View;
@@ -11,11 +10,12 @@ import androidx.appcompat.widget.SearchView;
 
 import com.example.shopsneaker.activity.SaleShoesActivity;
 import com.example.shopsneaker.model.Sales;
+import com.example.shopsneaker.retrofit.ApiService;
 
 public class ShoesSalesFragment extends androidx.fragment.app.Fragment{
     int i;
     androidx.recyclerview.widget.RecyclerView recyclerView;
-    com.example.shopsneaker.retrofit.ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     io.reactivex.rxjava3.disposables.CompositeDisposable compositeDisposable = new io.reactivex.rxjava3.disposables.CompositeDisposable();
     java.util.List<com.example.shopsneaker.model.Shoes> shoesList;
     SearchView searchView;
@@ -53,7 +53,7 @@ public class ShoesSalesFragment extends androidx.fragment.app.Fragment{
     @Override
     public void onViewCreated(@androidx.annotation.NonNull View view, @androidx.annotation.Nullable android.os.Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(com.example.shopsneaker.retrofit.ApiBanGiay.class);
+        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(ApiService.class);
 
         android.os.Bundle bundle = getArguments();
         if(bundle != null) {

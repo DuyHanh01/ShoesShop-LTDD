@@ -1,15 +1,10 @@
 package com.example.shopsneaker.activity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.SalesDetailsAdapter;
 import com.example.shopsneaker.model.SaleDetails;
-import com.example.shopsneaker.model.Sales;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import com.google.gson.Gson;
@@ -40,7 +34,7 @@ public class SaleDetailsActivity extends AppCompatActivity{
     private Toolbar toolbarSales;
     private SalesDetailsAdapter salesDetailsAdapter;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     private List<SaleDetails> listSales;
     private int salesId;
     private String salesName;
@@ -68,7 +62,7 @@ public class SaleDetailsActivity extends AppCompatActivity{
     }
 
     public void initUi() {
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         toolbarSales = findViewById(R.id.toolbarSales);
         toolbarSales.setTitle(salesName);
         txtcountsp = findViewById(R.id.txtcountsp);

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.activity.ChatActivity;
 import com.example.shopsneaker.model.Market;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -28,7 +27,7 @@ public class MarketAdapter extends RecyclerView.Adapter<MarketAdapter.MyViewHold
     Context context;
     List<Market> array;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);;
+    private ApiService apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);;
 
 
     public MarketAdapter(Context context, List<Market> array) {

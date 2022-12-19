@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".activity.AccountManagerActivity"
     android:weightSum="10"
+    android:background="@color/background"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
-        android:background="#222D6A"
-        app:titleTextColor="#fff"
+        android:background="@color/colorToolBar"
+        app:titleTextColor="@color/white"
         app:title="Username"
         android:id="@+id/toolbarMessage"
         android:layout_width="match_parent"

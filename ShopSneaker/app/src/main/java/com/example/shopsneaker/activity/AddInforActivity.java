@@ -10,11 +10,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shopsneaker.R;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
-import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -23,7 +22,7 @@ public class AddInforActivity extends AppCompatActivity {
 
     EditText edtName, edtAddress, edtPhone;
     Button btnConfirm;
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     String username;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -76,7 +75,7 @@ public class AddInforActivity extends AppCompatActivity {
 
     private void initControll() {
         username = getIntent().getStringExtra("user");
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         edtName = findViewById(R.id.edtname);
         edtAddress = findViewById(R.id.edtaddress);
         edtPhone = findViewById(R.id.edtphone);

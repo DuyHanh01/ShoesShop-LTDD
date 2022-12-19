@@ -2,9 +2,7 @@ package com.example.shopsneaker.retrofit;
 import com.example.shopsneaker.model.AddModel;
 import com.example.shopsneaker.model.MessageModel;
 import com.example.shopsneaker.model.uploadModel;
-import com.google.gson.JsonObject;
 
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -16,7 +14,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
-public interface ApiBanGiay {
+public interface ApiService {
     @retrofit2.http.POST("xemchitietdonhang.php")
     @FormUrlEncoded
     io.reactivex.rxjava3.core.Observable<com.example.shopsneaker.model.OrderDetailsModel> getChiTietDH(

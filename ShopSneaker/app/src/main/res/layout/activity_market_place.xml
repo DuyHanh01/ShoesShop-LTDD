@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.MarketPlaceActivity">
@@ -12,7 +12,7 @@
         android:id="@+id/toolbarProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorToolBar"
         app:title="MarketPlace"
         app:titleTextColor="@color/white">
         <FrameLayout
@@ -21,11 +21,12 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_marginRight="5dp"
             android:layout_gravity="right">
+
             <ImageView
-                android:layout_margin="5dp"
-                android:src="@drawable/ic_baseline_message_24"
                 android:layout_width="40dp"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_baseline_message_24" />
 
         </FrameLayout>
     </androidx.appcompat.widget.Toolbar>

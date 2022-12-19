@@ -2,7 +2,6 @@ package com.example.shopsneaker.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -11,13 +10,11 @@ import android.widget.TextView;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.BrandStatisticalAdapter;
-import com.example.shopsneaker.adapter.OrderDetailsAdapter;
 import com.example.shopsneaker.model.Brand;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -25,7 +22,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 public class BrandStatisticalActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     List<Brand> list;
     BrandStatisticalAdapter brandStatisticalAdapter;
     RecyclerView recyclerView;
@@ -35,7 +32,7 @@ public class BrandStatisticalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brandstatistical);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
         ActionToolBar();
         getBrandStatistical();

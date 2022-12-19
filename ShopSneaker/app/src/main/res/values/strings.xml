@@ -11,5 +11,6 @@
     <string name="ngv_OPEN">Open navigation drawer</string>
     <string name="ngv_CLOSE">Close navigation drawer</string>
     <string name="map_api_key">AIzaSyDBMq1GlP8PaZvgVYJj_ydgQV38q0--dzQ</string>
+    <string name="tim_kiem_gan_day">Tìm kiếm gần đây</string>
 
 </resources>

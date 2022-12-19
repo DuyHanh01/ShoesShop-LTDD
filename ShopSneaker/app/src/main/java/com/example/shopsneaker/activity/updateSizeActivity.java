@@ -14,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.model.SizeManagment;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -29,7 +29,7 @@ public class updateSizeActivity extends AppCompatActivity {
     EditText edtS38,edtS39,edtS40,edtS41,edtS42,edtS43,edtS44,edtS45,edtS46,edtS47,edtS48;
     Button btnUpSize;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     public int sizeid = 0;
 
 
@@ -37,7 +37,7 @@ public class updateSizeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_size);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
         ActionBar();
         getInformation();

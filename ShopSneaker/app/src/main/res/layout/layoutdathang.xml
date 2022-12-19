@@ -32,7 +32,7 @@
         android:layout_below="@id/name"
         android:layout_toRightOf="@id/imgAnh"
         android:text="Mo Ta"
-        android:textColor="#fe00"
+        android:textColor="@color/red"
         android:textSize="18sp"
         android:textStyle="bold">
 

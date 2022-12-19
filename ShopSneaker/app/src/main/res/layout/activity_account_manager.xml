@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".activity.AccountManagerActivity"
     android:weightSum="10"
+    android:background="@color/background"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
-        android:background="@color/teal_700"
-        app:titleTextColor="#fff"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/white"
         app:title="Quản lý tài khoản"
         android:id="@+id/toolbarAccountManament"
         android:layout_width="match_parent"

@@ -2,7 +2,6 @@ package com.example.shopsneaker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,13 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopsneaker.R;
-import com.example.shopsneaker.adapter.MarketAdapter;
 import com.example.shopsneaker.adapter.MessageAdapter;
-import com.example.shopsneaker.adapter.OrderAdapter;
-import com.example.shopsneaker.adapter.ShoesAdapter;
 import com.example.shopsneaker.model.Message;
 import com.example.shopsneaker.model.User;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -38,12 +34,12 @@ public class MessageActivity extends AppCompatActivity {
     List<Message> messageList;
     MessageAdapter messageAdapter;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         user = Utils.user_current;
         Init();
         actionToolbar();

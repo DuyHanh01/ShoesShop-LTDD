@@ -2,7 +2,6 @@ package com.example.shopsneaker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.MarketAdapter;
 import com.example.shopsneaker.model.Market;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -33,13 +32,13 @@ public class MarketPlaceActivity extends AppCompatActivity {
     MarketAdapter marketAdapter;
     List<Market> arrMarket;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     private SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_market_place);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
         actionToolbar();
         getPosts();

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarContactPhone"
         android:background="@color/colorPrimary"
-        app:titleTextColor="#ffffff"
+        app:titleTextColor="@color/white"
         app:title="Liên hệ với chúng tôi"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">

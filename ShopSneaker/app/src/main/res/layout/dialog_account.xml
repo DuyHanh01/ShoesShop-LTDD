@@ -67,6 +67,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/dongy_dialog_account"
         android:layout_margin="20dp"
+        android:textColor="@color/white"
         android:text="Đồng ý"
         android:background="@drawable/buttonstyle"
         />

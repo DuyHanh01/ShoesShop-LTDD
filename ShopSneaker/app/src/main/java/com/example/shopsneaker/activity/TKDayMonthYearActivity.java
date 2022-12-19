@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.model.TKDayMonthYear;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -21,7 +21,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 public class TKDayMonthYearActivity extends AppCompatActivity {
     Toolbar toolbar;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     List<TKDayMonthYear> tkDayMonthYearList;
     TextView ngay,Thang,Nam,countDHNgay, countDHThang, countDHNam, countDHDTT, countDHCTT, countDHDH, countNgay, countThang,countNam,countDTT,countCTT,countDH;
     LinearLayout linearLayoutNgay, linearLayoutThang, linearLayoutNam,linearLayoutCTT, linearLayoutDTT, linearLayoutDaHuy,linearLayoutBrand,linearLayoutSP;
@@ -29,7 +29,7 @@ public class TKDayMonthYearActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tkntn);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
         ActionToolBar();
         GetThongKeTinhTrangDonHang();

@@ -3,7 +3,6 @@ package com.example.shopsneaker.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -11,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.shopsneaker.R;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -28,7 +27,7 @@ public class ChangePassActivity extends AppCompatActivity {
     EditText txtOldpass;
     EditText txtNewpass, txtConfirmPass;
     AppCompatButton btnConfirm, btnHuy;
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
@@ -100,7 +99,7 @@ public class ChangePassActivity extends AppCompatActivity {
 
 
     private void initView() {
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         txtOldpass = findViewById(R.id.txtoldpass);
         txtNewpass = findViewById(R.id.txtnewpass);
         txtConfirmPass= findViewById(R.id.txtconfirm);

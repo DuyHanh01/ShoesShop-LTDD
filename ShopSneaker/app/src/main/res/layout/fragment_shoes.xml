@@ -13,24 +13,30 @@
         android:textColor="#000"
         android:background="#fff"
         android:padding="5dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleviewShoesByBrand"
-        android:layout_below="@id/txtcountsp"
-        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/txtcountsp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp">
 
     </androidx.recyclerview.widget.RecyclerView>
     <ProgressBar
+        android:theme="@style/ProgressBarTheme"
         android:id="@+id/progessbarShoes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
+
     <TextView
         android:id="@+id/txtNotifyShoes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Không có sản phẩm nào"/>
+        android:text="Không có sản phẩm nào" />
 
 </RelativeLayout>

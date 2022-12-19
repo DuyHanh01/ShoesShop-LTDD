@@ -3,11 +3,9 @@ package com.example.shopsneaker.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.ChatAdapter;
-import com.example.shopsneaker.adapter.MessageAdapter;
-import com.example.shopsneaker.model.Market;
 import com.example.shopsneaker.model.Message;
 import com.example.shopsneaker.model.User;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -42,7 +38,7 @@ public class ChatActivity extends AppCompatActivity {
     User user;
     EditText inputMess;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     AppCompatImageView imgBack;
     List<Message> list;
     RecyclerView chatRCV;
@@ -55,7 +51,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         user = Utils.user_current;
         message = (Message)  getIntent().getSerializableExtra("user");
         accid = getIntent().getIntExtra("accountid",-1);

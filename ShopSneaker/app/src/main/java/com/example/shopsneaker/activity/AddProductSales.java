@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.AddSaleDetailsAdapter;
 import com.example.shopsneaker.model.SaleDetails;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import com.google.gson.Gson;
@@ -30,7 +30,7 @@ public class AddProductSales extends AppCompatActivity {
     private Toolbar toolbarSales;
     private AddSaleDetailsAdapter salesDetailsAdapter;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     private List<SaleDetails> listSales;
     private int countList;
     private TextView txtcountsp;
@@ -53,7 +53,7 @@ public class AddProductSales extends AppCompatActivity {
     }
 
     public void initUi() {
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         toolbarSales = findViewById(R.id.toolbarSales);
         toolbarSales.setTitle("Thêm sản phẩm sales");
         txtcountsp = findViewById(R.id.txtcountsp);

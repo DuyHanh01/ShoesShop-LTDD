@@ -1,35 +1,24 @@
 package com.example.shopsneaker.activity;
 
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
-import com.example.shopsneaker.adapter.OrderAdapter;
 import com.example.shopsneaker.adapter.SalesAdapter;
-import com.example.shopsneaker.model.EventBus.SuaXoaEvent;
 import com.example.shopsneaker.model.EventBus.UDSales;
-import com.example.shopsneaker.model.EventBus.tinhtongtien;
-import com.example.shopsneaker.model.Order;
 import com.example.shopsneaker.model.Sales;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -50,7 +39,7 @@ public class SalesActivity extends AppCompatActivity {
     private Toolbar toolbarSales;
     private SalesAdapter salesAdapter;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     private List<Sales> listSales;
     private TextView txtcountsp;
     //private ImageView imageView,btnDelete;
@@ -76,7 +65,7 @@ public class SalesActivity extends AppCompatActivity {
     }
 
     public void initUi() {
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         toolbarSales = findViewById(R.id.toolbarSales);
         txtcountsp = findViewById(R.id.txtcountsp);
         //recyclerview

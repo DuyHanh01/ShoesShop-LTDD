@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@color/background"
     tools:context=".activity.OrderActivity">
     <LinearLayout
         android:layout_marginTop="35dp"
@@ -23,7 +23,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"
             android:text="Thanh toán"
             android:layout_width="wrap_content"
@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textEdit"
+            android:textColor="@color/black"
             android:text="Chỉnh sửa">
         </TextView>
 
@@ -173,7 +174,7 @@
                 android:layout_margin="10dp"/>
             <Button
                 android:background="@drawable/khung_button_radius"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:padding="10dp"
                 android:id="@+id/buttonxacnhan"
@@ -185,7 +186,7 @@
             <Button
 
                 android:background="@drawable/khung_button_radius"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:padding="10dp"
                 android:id="@+id/buttontrove"
@@ -196,51 +197,6 @@
                 android:layout_margin="10dp"/>
 
         </LinearLayout>
-        <!--<LinearLayout
-            android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:background="@drawable/khung_button_radius"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:padding="10dp"
-                android:id="@+id/buttonxacnhan"
-                android:text="Đặt hàng và thanh toán khi nhận hàng"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-
-                android:background="@drawable/khung_button_radius"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:padding="10dp"
-                android:id="@+id/buttontrove"
-                android:text="Trở về"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>-->
     </LinearLayout>
 
 </LinearLayout>

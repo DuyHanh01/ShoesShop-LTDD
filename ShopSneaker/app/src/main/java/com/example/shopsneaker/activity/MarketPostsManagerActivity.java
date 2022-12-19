@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.MarketManagerAdapter;
 import com.example.shopsneaker.model.Market;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -26,7 +26,7 @@ public class MarketPostsManagerActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView recyclerView;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     List<Market> arrayPosts;
     private int statusid;
     private String Title;
@@ -37,7 +37,7 @@ public class MarketPostsManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posts_managment);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         statusid = getIntent().getIntExtra("status",0);
         Title = getIntent().getStringExtra("Title");
         Init();

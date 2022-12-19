@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.model.ThongKeTinhTrangDonHang;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -20,7 +20,7 @@ public class MarketManagerActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar;
 
     private CompositeDisposable compositeDisposable = new io.reactivex.rxjava3.disposables.CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     TextView tcdh,dcd,dd;
     List<ThongKeTinhTrangDonHang> mangThongKeTinhTrangDonHang;
     android.widget.TextView countTatCaDonHang, countChoDuyet, countDaDuyet;
@@ -29,7 +29,7 @@ public class MarketManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qldon_hang);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
         ActionToolBar();
         GetThongKeTinhTrangDonHang();

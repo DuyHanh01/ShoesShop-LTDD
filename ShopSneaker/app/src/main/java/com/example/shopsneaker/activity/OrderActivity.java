@@ -1,9 +1,5 @@
 package com.example.shopsneaker.activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.OrderAdapter;
 import com.example.shopsneaker.model.Order;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import java.util.ArrayList;
@@ -26,13 +22,13 @@ public class OrderActivity extends AppCompatActivity {
     private Toolbar toolbarOrder;
     private OrderAdapter orderAdapter;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     private List<Order> mangdonhang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donhang);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         initUi();
         actionToolbar();
         getDonHang();

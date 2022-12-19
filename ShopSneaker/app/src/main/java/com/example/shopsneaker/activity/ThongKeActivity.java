@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.shopsneaker.R;
+import com.example.shopsneaker.retrofit.ApiService;
 
 public class ThongKeActivity extends AppCompatActivity {
     android.widget.ListView listView;
@@ -11,12 +12,12 @@ public class ThongKeActivity extends AppCompatActivity {
     java.util.ArrayList<com.example.shopsneaker.model.Admin> arrayList;
     com.example.shopsneaker.adapter.AdminAdapter adminAdapter;
 
-    com.example.shopsneaker.retrofit.ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.shopsneaker.R.layout.activity_thong_ke);
-        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(com.example.shopsneaker.retrofit.ApiBanGiay.class);
+        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(ApiService.class);
         Init();
         ActionBar();
         EventClick();

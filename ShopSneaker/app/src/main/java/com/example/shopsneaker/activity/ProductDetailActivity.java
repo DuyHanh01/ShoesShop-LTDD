@@ -2,8 +2,6 @@ package com.example.shopsneaker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatRatingBar;
@@ -27,19 +24,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.CommentAdapter;
-import com.example.shopsneaker.adapter.OrderDetailsAdapter;
-import com.example.shopsneaker.adapter.ShoesAdapter;
 import com.example.shopsneaker.adapter.SizeTableAdapter;
 import com.example.shopsneaker.model.Comment;
 import com.example.shopsneaker.model.GioHang;
-import com.example.shopsneaker.model.OrderDetails;
 import com.example.shopsneaker.model.Shoes;
 import com.example.shopsneaker.model.SizeTable;
 import com.example.shopsneaker.model.User;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
-import com.github.chrisbanes.photoview.PhotoView;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
@@ -69,7 +62,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     Shoes shoes;
     Comment comment;
     User user;
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     String size = null;
     RatingBar ratingBar;
     NotificationBadge badge;
@@ -83,7 +76,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
         ActionBar();
         InitData();

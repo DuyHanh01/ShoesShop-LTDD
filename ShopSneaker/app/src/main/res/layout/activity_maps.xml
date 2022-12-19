@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MapsActivity"
+    android:background="@color/background"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/Toolbar"
         app:title="VLTH Store"
-        app:titleTextColor="#fff"
-        android:background="#FFA60C0C"
+        app:titleTextColor="@color/white"
+        android:background="@color/colorToolBar"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">

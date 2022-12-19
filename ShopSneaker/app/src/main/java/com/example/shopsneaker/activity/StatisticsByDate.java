@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.statisticsDateAdapter;
 import com.example.shopsneaker.model.statistics;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -30,7 +30,7 @@ public class StatisticsByDate extends AppCompatActivity {
     statisticsDateAdapter statisticsAdapter;
     List<statistics> statisticsarray;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     int year, day, month;
     EditText edtyear,edtmonth,edtday;
     TextView textCountSPTK;
@@ -39,7 +39,7 @@ public class StatisticsByDate extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
         actionToolbar();
         eventClick();

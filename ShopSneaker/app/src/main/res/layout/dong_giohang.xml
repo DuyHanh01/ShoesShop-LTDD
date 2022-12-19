@@ -32,7 +32,7 @@
                 android:id="@+id/textviewtenmonhang"
                 android:text="Tên món hàng"
                 android:maxLines="1"
-                android:textColor="@color/teal_700"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

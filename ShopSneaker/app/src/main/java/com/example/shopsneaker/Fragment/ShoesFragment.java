@@ -8,10 +8,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.shopsneaker.R.id;
+import com.example.shopsneaker.retrofit.ApiService;
 
 public class ShoesFragment extends androidx.fragment.app.Fragment {
     androidx.recyclerview.widget.RecyclerView recyclerView;
-    com.example.shopsneaker.retrofit.ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     io.reactivex.rxjava3.disposables.CompositeDisposable compositeDisposable = new io.reactivex.rxjava3.disposables.CompositeDisposable();
     android.widget.ImageView img_newShoesByBrand;
     int page=1;
@@ -53,7 +54,7 @@ public class ShoesFragment extends androidx.fragment.app.Fragment {
     @Override
     public void onViewCreated(@androidx.annotation.NonNull View view, @androidx.annotation.Nullable android.os.Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(com.example.shopsneaker.retrofit.ApiBanGiay.class);
+        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(ApiService.class);
         Init(view);
 
         android.os.Bundle bundle = getArguments();

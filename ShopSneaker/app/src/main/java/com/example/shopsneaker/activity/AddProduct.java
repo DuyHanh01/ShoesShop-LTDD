@@ -19,25 +19,18 @@ import android.widget.Toast;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.databinding.ActivityAddProductBinding;
-import com.example.shopsneaker.model.AddModel;
 import com.example.shopsneaker.model.Shoes;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AddProduct extends AppCompatActivity {
     public List<com.example.shopsneaker.model.Brand> brandList;
@@ -49,7 +42,7 @@ public class AddProduct extends AppCompatActivity {
     int index=0;
     String Title;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     ActivityAddProductBinding binding;
     //android.net.Uri mediaPath;
    String mediaPath;
@@ -65,7 +58,7 @@ public class AddProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
 
         actionToolbar();

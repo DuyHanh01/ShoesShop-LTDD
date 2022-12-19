@@ -1,11 +1,9 @@
 package com.example.shopsneaker.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,9 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopsneaker.R;
-import com.example.shopsneaker.activity.ChatActivity;
 import com.example.shopsneaker.model.Market;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -27,7 +24,7 @@ public class MarketClientAdapter extends RecyclerView.Adapter<MarketClientAdapte
     Context context;
     List<Market> array;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);;
+    private ApiService apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);;
 
 
     public MarketClientAdapter(Context context, List<Market> array) {

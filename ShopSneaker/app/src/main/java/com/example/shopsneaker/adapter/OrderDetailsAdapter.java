@@ -20,13 +20,11 @@ import com.bumptech.glide.Glide;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.activity.FullImageView;
 import com.example.shopsneaker.model.OrderDetails;
-import com.example.shopsneaker.model.User;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import java.util.List;
 
-import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -85,8 +83,8 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
             ImageView ratingImage;
             RatingBar ratingBar;
             CompositeDisposable compositeDisposable = new CompositeDisposable();
-            ApiBanGiay apiBanGiay;
-            apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+            ApiService apiBanGiay;
+            apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
             AlertDialog.Builder builder= new AlertDialog.Builder(v.getRootView().getContext());
             View view = LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.rate_us_dialog_layout,null);
             ratingBar = view.findViewById(R.id.ratingBar);

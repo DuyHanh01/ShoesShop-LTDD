@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.OrderDetailsAdapter;
 import com.example.shopsneaker.model.OrderDetails;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private Toolbar toolbarOrderDetails;
     private RecyclerView recyclerOrderDetails;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     private List<OrderDetails> mangSanPham;
     private OrderDetailsAdapter orderDetailsAdapter;
     private int idorder;
@@ -31,7 +31,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietdonhang);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         idorder = getIntent().getIntExtra("iddh",-1);
         initUi();
         actionToolbar();

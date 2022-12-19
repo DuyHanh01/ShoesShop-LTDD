@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shopsneaker.R;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import com.example.shopsneaker.utils.checkconnect;
@@ -23,14 +23,13 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import vn.momo.momo_partner.AppMoMoLib;
-import vn.momo.momo_partner.MoMoParameterNameMap;
 
 public class PaymentActivity extends AppCompatActivity {
     TextView txtAddress,txtEdit, txtName, txtPhone,txtEmail;
     EditText editNote;
     Button btxacnhan,bttrove,btnMomo;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     long tongtien;
     String username;
     private String amount = "10000";
@@ -47,7 +46,7 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT); // AppMoMoLib.ENVIRONMENT.PRODUCTION
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         username = Utils.user_current.getUsername();
         getUser();
         getOrderID();

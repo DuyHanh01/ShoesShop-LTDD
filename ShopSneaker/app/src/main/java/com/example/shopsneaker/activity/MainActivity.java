@@ -1,20 +1,13 @@
 package com.example.shopsneaker.activity;
 
-import static android.view.View.VISIBLE;
-
-import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,12 +37,11 @@ import com.example.shopsneaker.model.Brand;
 import com.example.shopsneaker.model.Sales;
 import com.example.shopsneaker.model.Shoes;
 import com.example.shopsneaker.model.User;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import com.example.shopsneaker.utils.checkconnect;
 import com.nex3z.notificationbadge.NotificationBadge;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,7 +61,7 @@ public class MainActivity extends AppCompatActivity{
     private ShoesAdapter shoesAdapter;
     private DrawerLayout drawerlayoutManHinhChinh;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     private List<Shoes> mangSanPham;
     private BrandAdapter brandAdapter;
     public List<Brand> mangBrand;
@@ -105,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Paper.init(this);
         if(Paper.book().read("user")!=null){
             User user = Paper.book().read("user");
@@ -168,25 +160,20 @@ public class MainActivity extends AppCompatActivity{
                                             ls.add(salesList.get(i));
                                         }
                                     }
-
                                     salesList=ls;
                                     o=salesList.size();
                                     SalePagerAdapter salePagerAdapter = new SalePagerAdapter(this,salesList);
                                     viewPager2Sale.setAdapter(salePagerAdapter);
                                     circleIndicator3.setViewPager(viewPager2Sale);
-
-
                                 }else {
                                     o=0;
                                 }
-
                             }
                             else {
                                 o=0;
                             }
                         },
                         throwable -> {
-
                             Toast.makeText(getApplicationContext(), "Khong ket noi duoc voi server", Toast.LENGTH_LONG).show();
                         }
                 ));
@@ -257,76 +244,6 @@ public class MainActivity extends AppCompatActivity{
         ToolbarManHinhChinh.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size);
         ToolbarManHinhChinh.setNavigationOnClickListener(v -> drawerlayoutManHinhChinh.openDrawer(GravityCompat.START));
     }
-
-    /*private ArrayList<String> mangQuangCao(){
-        ArrayList<String> mangQuangCao = new ArrayList<>();
-        mangQuangCao.add(getString(R.string.anhQuangCao1));
-        mangQuangCao.add(getString(R.string.anhQuangCao2));
-        mangQuangCao.add(getString(R.string.anhQuangCao3));
-        mangQuangCao.add(getString(R.string.anhQuangCao4));
-        return mangQuangCao;
-    }*/
-
-    /*private void SetAnimationForViewFlipper(ViewFlipper viewFlipper){
-        Animation slide_in_right = AnimationUtils.loadAnimation(this,R.anim.slide_in_right);
-        Animation slide_out_right = AnimationUtils.loadAnimation(this,R.anim.slide_out_right);
-        viewFlipper.setOutAnimation(slide_out_right);
-        viewFlipper.setInAnimation(slide_in_right);
-    }*/
-
-   /* private float oldX,newX;
-    private boolean checkTouch = false;
-    @SuppressLint("ClickableViewAccessibility")
-    private void TouchMoveForViewFlipper(final ViewFlipper viewFlipper){
-        viewFlipper.setOnTouchListener((v, event) -> {
-
-            if(event.getAction()==MotionEvent.ACTION_DOWN){
-                oldX=event.getX();
-                Log.d("touch", "down");
-            }
-            if(event.getAction()==MotionEvent.ACTION_UP){
-                newX=event.getX();
-                Log.d("touch", "up");
-                checkTouch=true;
-            }
-            if(checkTouch==true){
-                if(oldX<newX ){
-                    if(viewFlipper.isAutoStart()){
-                        viewFlipper.stopFlipping();
-                        viewFlipper.showPrevious();
-                        viewFlipper.startFlipping();
-                        viewFlipper.setAutoStart(true);
-
-                    }
-
-                }else{
-                    viewFlipper.stopFlipping();
-                    viewFlipper.showNext();
-                    viewFlipper.startFlipping();
-                    viewFlipper.setAutoStart(true);
-                }
-                checkTouch=false;
-                oldX = 0;
-                newX = 0;
-            }
-            return true;
-        });
-
-    }*/
-
-    /*private void ActionViewFlipper() {
-        for(int i=0;i<this.mangQuangCao().size();i++){
-            ImageView imageView = new ImageView(this);
-            Picasso.get().load(this.mangQuangCao().get(i)).into(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewfliperManHinhChinh.addView(imageView);
-        }
-        viewfliperManHinhChinh.setFlipInterval(7000);
-        viewfliperManHinhChinh.setAutoStart(true);
-        this.SetAnimationForViewFlipper(viewfliperManHinhChinh);
-        this.TouchMoveForViewFlipper(viewfliperManHinhChinh);
-
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -457,7 +374,7 @@ public class MainActivity extends AppCompatActivity{
                                 mangBrand.add(0, new Brand(0,"Tất cả sản phẩm","",""));
                                 mangBrand.add( mangBrand.size(),new Brand(0,"Liên hệ","Đây là trang lien he","https://sv3.anh365.com/images/2022/04/18/imaged7179bbdfb64d3a1.png"));
                                 mangBrand.add(mangBrand.size(), new Brand(0,"MarketPlace","Đây là trang giao dịch","https://img.icons8.com/external-becris-flat-becris/344/external-market-business-world-becris-flat-becris.png"));
-                                brandAdapter=new com.example.shopsneaker.adapter.BrandAdapter(getApplicationContext(),mangBrand);
+                                brandAdapter=new BrandAdapter(getApplicationContext(),mangBrand);
                                 ListviewManHinhChinh.setAdapter(brandAdapter);
                             }
                         },
@@ -511,7 +428,6 @@ public class MainActivity extends AppCompatActivity{
             drawerlayoutManHinhChinh.closeDrawer(GravityCompat.START);
             Intent intent = new android.content.Intent(getApplicationContext(), AdminActivity.class);
             startActivity(intent);
-
         });
     }
 }

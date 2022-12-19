@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shopsneaker.R;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edtUserName;
     EditText edtPassWord, repass;
     Button btnRegister;
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
@@ -102,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         edtUserName = findViewById(R.id.txtUserDK);
         edtPassWord = findViewById(R.id.txtPassDK);
         repass = findViewById(R.id.txtrePassDK);

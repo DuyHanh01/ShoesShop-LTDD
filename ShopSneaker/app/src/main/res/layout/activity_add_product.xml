@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.AddProduct">
@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/teal_700"
+        android:background="@color/colorToolBar"
         app:titleTextColor="@color/white"
         app:title="Thêm sản phẩm">
 
@@ -103,7 +103,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:background="@color/teal_700"
+            android:background="@color/colorPrimary"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:textAllCaps="false"

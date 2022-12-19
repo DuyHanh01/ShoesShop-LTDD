@@ -17,7 +17,7 @@ import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.ShoesAdapter;
 import com.example.shopsneaker.model.EventBus.SuaXoaEvent;
 import com.example.shopsneaker.model.Shoes;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -37,7 +37,7 @@ public class ProductManagement extends AppCompatActivity {
     ShoesAdapter sanPhamMoiAdapter;
     List<Shoes> arrSp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     ImageView imgAdd;
     Shoes shoesUpDe;
     Toolbar toolbarProduct;
@@ -49,7 +49,7 @@ public class ProductManagement extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_managment);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         brandId = getIntent().getIntExtra("brandId",1);
         title = getIntent().getStringExtra("Title");
         Init();

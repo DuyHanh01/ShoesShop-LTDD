@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.statisticsYearAdapter;
 import com.example.shopsneaker.model.statistics;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -31,7 +30,7 @@ public class StatisticsByYear extends AppCompatActivity {
     statisticsYearAdapter statisticsAdapter;
     List<statistics> statisticsarray;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     String year;
     TextView textCountSPTK;
     EditText edtYear,edtDay,edtMonth;
@@ -40,7 +39,7 @@ public class StatisticsByYear extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
         actionToolbar();
         eventClick();

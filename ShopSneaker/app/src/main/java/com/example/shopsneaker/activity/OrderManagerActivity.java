@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -16,11 +15,10 @@ import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.OrderManagerAdapter;
 import com.example.shopsneaker.model.EventBus.SuaOrder;
 import com.example.shopsneaker.model.Order;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -37,14 +35,14 @@ public class OrderManagerActivity extends AppCompatActivity implements AdapterVi
 
     private OrderManagerAdapter orderManagerAdapter;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     private List<Order> mangdonhang;
     private Order orderUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_manager);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         statusid = getIntent().getIntExtra("status",0);
         Title = getIntent().getStringExtra("Title");
         Init();

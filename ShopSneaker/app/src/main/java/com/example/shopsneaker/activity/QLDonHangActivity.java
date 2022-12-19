@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.shopsneaker.retrofit.ApiService;
+
 public class QLDonHangActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar;
 
     private io.reactivex.rxjava3.disposables.CompositeDisposable compositeDisposable = new io.reactivex.rxjava3.disposables.CompositeDisposable();
-    private com.example.shopsneaker.retrofit.ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     java.util.List<com.example.shopsneaker.model.ThongKeTinhTrangDonHang> mangThongKeTinhTrangDonHang;
     android.widget.TextView countTatCaDonHang, countChoDuyet, countDaDuyet, countDangGiao, countDaGiao, countDaHuy;
     android.widget.LinearLayout linearLayoutTatCaDonHang, linearLayoutChoDuyet, linearLayoutDaDuyet,linearLayoutDangGiao, linearLayoutDaGiao, linearLayoutDaHuy;
@@ -16,7 +18,7 @@ public class QLDonHangActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.shopsneaker.R.layout.activity_qldon_hang);
-        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(com.example.shopsneaker.retrofit.ApiBanGiay.class);
+        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(ApiService.class);
         Init();
         ActionToolBar();
         GetThongKeTinhTrangDonHang();

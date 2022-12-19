@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".activity.OrderManagerActivity"
     android:weightSum="10"
+    android:background="@color/background"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
-        android:background="@color/teal_700"
-        app:titleTextColor="#FFFFFF"
+        android:background="@color/colorToolBar"
+        app:titleTextColor="@color/white"
         app:title="Quản lý đơn hàng"
         android:id="@+id/toolbarOrderManament"
         android:layout_width="match_parent"

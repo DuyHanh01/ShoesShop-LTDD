@@ -6,10 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.GioHangActivity"
+    android:background="@color/background"
     android:weightSum="10">
     <androidx.appcompat.widget.Toolbar
         android:background="@color/colorToolBar"
-        app:titleTextColor="#FFFFFF"
+        app:titleTextColor="@color/white"
         app:title="Đơn hàng"
         android:id="@+id/toolbardonhang"
         android:layout_width="match_parent"

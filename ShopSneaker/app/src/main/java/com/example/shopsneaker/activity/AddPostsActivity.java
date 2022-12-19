@@ -2,7 +2,6 @@ package com.example.shopsneaker.activity;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -28,14 +27,10 @@ import androidx.core.content.ContextCompat;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.model.Images;
 import com.example.shopsneaker.model.Market;
-import com.example.shopsneaker.model.uploadModel;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
-import com.example.shopsneaker.utils.AppConfig;
-import com.example.shopsneaker.utils.FileUtils;
 import com.example.shopsneaker.utils.Utils;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,14 +44,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AddPostsActivity extends AppCompatActivity {
     Toolbar toolbar;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     Market marketUp;
     EditText productname, price,edtsize,edtdescription;
     boolean flag = false;
@@ -77,7 +69,7 @@ public class AddPostsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_posts);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         Init();
         actionToolbar();
         Intent intent = getIntent();

@@ -1,10 +1,8 @@
 package com.example.shopsneaker.activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.statisticsIdAdapter;
-import com.example.shopsneaker.model.Brand;
 import com.example.shopsneaker.model.statistics;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -31,7 +28,7 @@ public class StatisticsById extends AppCompatActivity {
     statisticsIdAdapter statisticsAdapter;
     List<statistics> statisticsarray;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     int year,x = 0;
     EditText edtyear;
     Integer brandid;
@@ -44,7 +41,7 @@ public class StatisticsById extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         brandid = getIntent().getIntExtra("brandid",1);
         int b = brandid;
         Init();

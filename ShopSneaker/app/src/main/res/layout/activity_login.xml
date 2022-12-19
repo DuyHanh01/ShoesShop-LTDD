@@ -5,6 +5,13 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp">
+    <TextView
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Welcome Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></TextView>
     <RelativeLayout
         android:padding="20dp"
         android:layout_width="200dp"
@@ -18,32 +25,28 @@
     </RelativeLayout>
 
     <EditText
+        android:background="@drawable/rounded_edittext"
         android:id="@+id/txtUsername"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:hint="Email"
+        android:padding="10dp"
         android:inputType="textEmailAddress"
         android:imeOptions="actionNext"
         android:maxLength="100"
         android:textColor="@color/black"/>
     <EditText
+        android:background="@drawable/rounded_edittext"
         android:id="@+id/txtPass"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:hint="Password"
+        android:padding="10dp"
         android:inputType="textPassword"
         android:imeOptions="actionDone"
         android:maxLength="100"
         android:layout_marginTop="10dp"
         android:textColor="@color/black"/>
-    <Button
-        android:id="@+id/btnDangnhap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="#0ea8b9"
-        android:padding="10dp"
-        android:text="Đăng nhập"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,11 +58,17 @@
             android:text="Quên mật khẩu?"
             android:textColor="@color/design_default_color_primary"
             android:textSize="14sp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/design_default_color_primary_dark"/>
     </LinearLayout>
+    <Button
+        android:textColor="@color/white"
+        android:id="@+id/btnDangnhap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:text="Đăng nhập"/>
+
     <LinearLayout
         android:id="@+id/layout_sign_up"
         android:layout_width="match_parent"
@@ -69,6 +78,7 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
         <TextView
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Don't have an account?"
@@ -79,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:textSize="16sp"
-            android:textColor="@android:color/holo_green_dark"
+            android:textColor="@color/design_default_color_primary_dark"
             android:text="Đăng ký"/>
     </LinearLayout>
 </LinearLayout>

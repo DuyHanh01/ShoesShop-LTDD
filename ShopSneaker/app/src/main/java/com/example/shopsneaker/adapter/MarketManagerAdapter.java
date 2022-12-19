@@ -17,7 +17,7 @@ import com.example.shopsneaker.R;
 import com.example.shopsneaker.activity.MarketManagerActivity;
 import com.example.shopsneaker.interFace.ItemClickListener;
 import com.example.shopsneaker.model.Market;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -30,7 +30,7 @@ public class MarketManagerAdapter extends RecyclerView.Adapter<MarketManagerAdap
     Context context;
     List<Market> array;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);;
+    private ApiService apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);;
 
     public MarketManagerAdapter(Context context, List<Market> array) {
         this.context = context;

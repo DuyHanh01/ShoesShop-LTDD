@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.databinding.ActivityAddsalesBinding;
 import com.example.shopsneaker.model.Sales;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -32,7 +32,7 @@ public class AddSalesActivity extends AppCompatActivity {
     private Button button;
     private EditText startDay, endDay;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ApiBanGiay apiBanGiay;
+    private ApiService apiBanGiay;
     private ActivityAddsalesBinding binding;
     boolean flag = false;
     private Sales salesUD;
@@ -74,7 +74,7 @@ public class AddSalesActivity extends AppCompatActivity {
     }
 
     public void initUi() {
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         toolbar = findViewById(R.id.toolbarAdd);
         startDay = findViewById(R.id.startDay);
         endDay = findViewById(R.id.endDay);

@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/background"
     android:layout_height="match_parent"
     tools:context=".activity.UpdateOrder">
     <androidx.appcompat.widget.Toolbar
         app:titleTextColor="@color/white"
         android:id="@+id/toorupdateorder"
         app:title="Cập nhật đơn hàng"
-        android:background="@color/teal_700"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -32,7 +33,7 @@
                 android:id="@+id/OrderId"
                 android:text="Mã đơn hàng"
                 android:textStyle="bold"
-                android:textColor="@color/teal_700"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -62,7 +63,7 @@
         <Button
             android:textColor="@color/white"
             android:layout_marginLeft="300dp"
-            android:background="@color/teal_700"
+            android:background="@color/colorPrimary"
             android:text="Xác Nhận"
             android:id="@+id/btnaccept"
             android:layout_width="wrap_content"

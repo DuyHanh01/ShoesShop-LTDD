@@ -33,7 +33,7 @@
                     android:textStyle="bold"
                     android:id="@+id/txtIdSP"
                     android:text="ID sp"
-                    android:textColor="@color/teal_700"
+                    android:textColor="@color/colorPrimaryDark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>
@@ -41,7 +41,7 @@
                     android:id="@+id/txtName"
                     android:layout_gravity="center"
                     android:text="Ten sp"
-                    android:textColor="@color/teal_700"
+                    android:textColor="@color/colorPrimaryDark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>

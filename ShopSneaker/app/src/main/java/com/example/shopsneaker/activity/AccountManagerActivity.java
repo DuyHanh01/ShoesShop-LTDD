@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.shopsneaker.retrofit.ApiService;
+
 public class AccountManagerActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbarAccountManager;
     androidx.recyclerview.widget.RecyclerView recyclerViewAccountManager;
-    com.example.shopsneaker.retrofit.ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     io.reactivex.rxjava3.disposables.CompositeDisposable compositeDisposable=new io.reactivex.rxjava3.disposables.CompositeDisposable();
     com.example.shopsneaker.adapter.AccountAdapter accountAdapter;
     java.util.List<com.example.shopsneaker.model.User> mangUser;
@@ -22,7 +24,7 @@ public class AccountManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.shopsneaker.R.layout.activity_account_manager);
-        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(com.example.shopsneaker.retrofit.ApiBanGiay.class);
+        apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(ApiService.class);
 
         Init();
         actionToolbar();

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.shopsneaker.R;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -23,7 +23,7 @@ public class ResetPassActivity extends AppCompatActivity {
 
     EditText username;
     AppCompatButton forgetpass;
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
@@ -65,7 +65,7 @@ public class ResetPassActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         username = findViewById(R.id.txtresetpass);
         forgetpass = findViewById(R.id.btnforgetpass);
     }

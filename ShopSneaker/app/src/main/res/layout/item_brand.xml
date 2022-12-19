@@ -7,15 +7,13 @@
     <ImageView
         android:id="@+id/item_BrandLogo"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        >
-
+        android:layout_height="50dp">
     </ImageView>
     <TextView
         android:id="@+id/item_BrandName"
         android:text="Nike"
         android:layout_marginLeft="15dp"
-        android:textColor="#fff"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:layout_width="match_parent"

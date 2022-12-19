@@ -1,42 +1,16 @@
 package com.example.shopsneaker.activity;
 
-import static com.example.shopsneaker.R.id.salesName;
-import static com.example.shopsneaker.R.id.tab_layoutShoes;
-import static com.example.shopsneaker.R.id.tab_layoutShoesSale;
-import static com.example.shopsneaker.R.id.viewPager2Shoes;
-
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.shopsneaker.Fragment.SaleFragment;
 import com.example.shopsneaker.Fragment.ShoesSalesFragment;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.R.id;
 import com.example.shopsneaker.adapter.ShoesSalePagerAdapter;
 import com.example.shopsneaker.model.Sales;
-import com.example.shopsneaker.model.Shoes;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
-import com.example.shopsneaker.retrofit.RetrofitClient;
-import com.example.shopsneaker.utils.Utils;
-import com.example.shopsneaker.adapter.ShoesAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class SaleShoesActivity extends AppCompatActivity {

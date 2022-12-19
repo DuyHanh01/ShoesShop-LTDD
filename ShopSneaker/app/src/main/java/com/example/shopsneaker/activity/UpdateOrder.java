@@ -17,10 +17,9 @@ import android.widget.Toast;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.OrderDetailsAdapter;
-import com.example.shopsneaker.adapter.ShoesAdapter;
 import com.example.shopsneaker.model.Order;
 import com.example.shopsneaker.model.OrderDetails;
-import com.example.shopsneaker.retrofit.ApiBanGiay;
+import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 
@@ -44,7 +43,7 @@ public class UpdateOrder extends AppCompatActivity {
     private String tt;
     private String status;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanGiay apiBanGiay;
+    ApiService apiBanGiay;
     Toolbar toolbarOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +120,7 @@ public class UpdateOrder extends AppCompatActivity {
         orderid = orderUp.getOrderid();
 
         tt = orderUp.getStatusname();
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanGiay.class);
+        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         toolbarOrder = findViewById(R.id.toorupdateorder);
         orderId = findViewById(R.id.OrderId);
         orderId.setText("MDH: "+orderid);
