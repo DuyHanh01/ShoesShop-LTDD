@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <TextView
-        android:id="@+id/txtcountsp"
+        android:id="@+id/txtcountspsale"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -14,20 +14,20 @@
         android:background="#fff"
         android:padding="5dp"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleviewShoesByBrand"
-        android:layout_below="@id/txtcountsp"
+        android:id="@+id/recycleviewShoesSale"
+        android:layout_below="@id/txtcountspsale"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
     <ProgressBar
-        android:id="@+id/progessbarShoes"
+        android:id="@+id/progessbarShoesSale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
     <TextView
-        android:id="@+id/txtNotifyShoes"
+        android:id="@+id/txtNotifyShoesSale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

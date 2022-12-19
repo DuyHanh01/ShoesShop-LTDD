@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
+
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerlayoutManHinhChinh"
         android:layout_width="match_parent"
@@ -30,12 +32,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <ViewFlipper
+                    <!--<ViewFlipper
                         android:id="@+id/viewfliperManHinhChinh"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp">
+                        android:layout_height="150dp"
+                        >
 
-                    </ViewFlipper>
+                    </ViewFlipper>-->
+                    <RelativeLayout
+                        android:id="@+id/rl_Sale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/viewpager2Sale"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"/>
+                        <me.relex.circleindicator.CircleIndicator3
+                            android:id="@+id/indicatorSale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_margin="20dp"
+                            android:layout_alignParentEnd="true"
+                            app:ci_drawable="@drawable/bg_indicator"
+                            />
+
+
+                    </RelativeLayout>
+
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -76,7 +100,7 @@
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
@@ -99,7 +123,12 @@
                                 android:gravity="center">
 
                             </TextView>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            <ProgressBar
+                                android:id="@+id/progessbarSaleMain"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"/>
+                        </RelativeLayout>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -127,7 +156,7 @@
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
@@ -148,11 +177,15 @@
                                 android:text="Không có sản phẩm"
                                 android:textSize="18sp"
                                 android:gravity="center">
-
                             </TextView>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            <ProgressBar
+                                android:id="@+id/progessbarSearchMain"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"/>
+                        </RelativeLayout>
                     </LinearLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="20dp"
@@ -183,7 +216,7 @@
                             android:paddingTop="10dp"
                             android:textColor="#000"
                             android:layout_margin="10dp"
-                            app:layout_constraintStart_toEndOf="@+id/txtview_SanPhamMoiNhat"
+                            android:layout_toEndOf="@+id/txtview_SanPhamMoiNhat"
                             tools:ignore="MissingConstraints"
                             tools:layout_editor_absoluteY="0dp" />
 
@@ -191,6 +224,7 @@
                             android:id="@+id/recyclerViewNewItems"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_below="@+id/txtview_SanPhamMoiNhat"
                             android:layout_marginTop="5dp"
                             app:layout_constraintTop_toBottomOf="@id/txtview_SanPhamMoiNhat"
                             tools:layout_editor_absoluteX="9dp">
@@ -209,11 +243,17 @@
                             tools:layout_editor_absoluteX="0dp">
 
                         </TextView>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        <ProgressBar
+                            android:id="@+id/progessbarNewsShoesMain"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
 
 
                 </LinearLayout>
             </ScrollView>
+
         </LinearLayout>
 
         <com.google.android.material.navigation.NavigationView
@@ -267,4 +307,4 @@
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

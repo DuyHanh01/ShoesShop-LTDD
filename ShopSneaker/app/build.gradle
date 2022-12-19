@@ -93,6 +93,8 @@ dependencies {
     //cloudinary
 
     implementation 'com.cloudinary:cloudinary-android:2.2.0'
+    //CircleIndicator
+    implementation 'me.relex:circleindicator:2.1.6'
 
 
 }

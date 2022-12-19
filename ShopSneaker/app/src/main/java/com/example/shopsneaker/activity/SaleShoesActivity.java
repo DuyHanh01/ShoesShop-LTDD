@@ -1,5 +1,9 @@
 package com.example.shopsneaker.activity;
 
+import static com.example.shopsneaker.R.id.tab_layoutShoes;
+import static com.example.shopsneaker.R.id.tab_layoutShoesSale;
+import static com.example.shopsneaker.R.id.viewPager2Shoes;
+
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +16,14 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.shopsneaker.Fragment.SaleFragment;
+import com.example.shopsneaker.Fragment.ShoesSalesFragment;
 import com.example.shopsneaker.R;
+import com.example.shopsneaker.R.id;
+import com.example.shopsneaker.adapter.ShoesSalePagerAdapter;
+import com.example.shopsneaker.model.Sales;
 import com.example.shopsneaker.model.Shoes;
 import com.example.shopsneaker.retrofit.ApiBanGiay;
 import com.example.shopsneaker.retrofit.RetrofitClient;
@@ -29,7 +39,91 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class SaleShoesActivity extends AppCompatActivity {
-    Toolbar toolbar;
+    private androidx.appcompat.widget.Toolbar toolbarShoesSale;
+    private com.google.android.material.tabs.TabLayout tableLayoutShoesSale;
+    private ViewPager2 viewPagerShoesSale;
+    private ShoesSalePagerAdapter shoesPagerAdapterShoesSale;
+    public static int saleid;
+    @Override
+    protected void onCreate(@androidx.annotation.Nullable android.os.Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sale_shoes);
+        Intent intent = getIntent();
+        saleid = intent.getIntExtra("saleid",0);
+        String salename = intent.getStringExtra("salename");
+
+
+        Sales sv = new Sales();
+        sv.setSalesid(saleid);
+    //truyen qua bundle
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_sale", sv);
+        ShoesSalesFragment svInfo = new ShoesSalesFragment();
+        svInfo.setArguments(bundle);
+        androidx.fragment.app.FragmentTransaction trans =
+                getSupportFragmentManager().beginTransaction();
+        trans.replace(id.lnSaleShoess, svInfo);
+        trans.commit();
+
+
+        Init();
+        ActionToolBar();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@androidx.annotation.NonNull android.view.MenuItem item) {
+        switch (item.getItemId()){
+            case id.menugiohang:
+                android.content.Intent intent =new android.content.Intent(getApplicationContext(), com.example.shopsneaker.activity.GioHangActivity.class);
+                startActivity(intent);
+                break;
+            case id.profile:
+                android.content.Intent intentLogout =new android.content.Intent(getApplicationContext(), com.example.shopsneaker.activity.ProfileActivity.class);
+                startActivity(intentLogout);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void ActionToolBar() {
+        setSupportActionBar(toolbarShoesSale);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Khuyến mãi");
+        toolbarShoesSale.setNavigationOnClickListener(view -> {
+            android.content.Intent intent =new android.content.Intent(getApplicationContext(), com.example.shopsneaker.activity.MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+    }
+    private void Init() {
+        try {
+
+            toolbarShoesSale = findViewById(id.ToolbarSale);
+            tableLayoutShoesSale = findViewById(R.id.tab_layoutShoesSale);
+            viewPagerShoesSale= findViewById(R.id.viewPager2ShoesSale);
+            shoesPagerAdapterShoesSale = new ShoesSalePagerAdapter(this);
+            viewPagerShoesSale.setAdapter(shoesPagerAdapterShoesSale);
+            new com.google.android.material.tabs.TabLayoutMediator(tableLayoutShoesSale, viewPagerShoesSale, (tab, position) -> {
+
+                switch (position) {
+                    case 0:
+                        tab.setText("Bán chạy");
+                        break;
+                    case 1:
+                        tab.setText("Mới");
+                        break;
+                    case 2:
+                        tab.setText("Giá ^");
+                        break;
+
+
+                }
+
+            }).attach();
+        }catch (Exception ex){
+
+        }
+    }
+    /*Toolbar toolbar;
     RecyclerView recyclerView;
     ApiBanGiay apiBanGiay;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -157,5 +251,5 @@ public class SaleShoesActivity extends AppCompatActivity {
     protected void onDestroy() {
         compositeDisposable.clear();
         super.onDestroy();
-    }
+    }*/
 }

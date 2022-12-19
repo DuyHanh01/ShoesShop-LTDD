@@ -1,5 +1,7 @@
 package com.example.shopsneaker.activity;
 
+import static android.view.View.VISIBLE;
+
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Intent;
@@ -12,7 +14,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -25,12 +30,15 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.BrandAdapter;
 import com.example.shopsneaker.adapter.FlashSaleShoesAdapter;
+import com.example.shopsneaker.adapter.SalePagerAdapter;
 import com.example.shopsneaker.adapter.ShoesAdapter;
 import com.example.shopsneaker.model.Brand;
+import com.example.shopsneaker.model.Sales;
 import com.example.shopsneaker.model.Shoes;
 import com.example.shopsneaker.model.User;
 import com.example.shopsneaker.retrofit.ApiBanGiay;
@@ -41,12 +49,14 @@ import com.nex3z.notificationbadge.NotificationBadge;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import me.relex.circleindicator.CircleIndicator3;
 
 public class MainActivity extends AppCompatActivity{
     private Toolbar ToolbarManHinhChinh;
@@ -67,9 +77,15 @@ public class MainActivity extends AppCompatActivity{
     private NotificationBadge badge;
     private MenuItem menusearch;
     private SearchView searchView;
-    public static int id;
-    private android.widget.LinearLayout linearLayoutAdmin;
+    public static int id,o;
+    private List<Sales> salesList;
+    private ProgressBar progressBarSaleMain,progressBarSearchMain,progressBarNewsShoesMain;
+    private LinearLayout linearLayoutAdmin;
+    private ViewPager2 viewPager2Sale;
+    private CircleIndicator3 circleIndicator3;
+    private RelativeLayout rl;
 
+    @android.annotation.SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,13 +97,18 @@ public class MainActivity extends AppCompatActivity{
             Utils.user_current = user;
         }
         initUi();
+        rl= findViewById(R.id.rl_Sale);
         if(checkconnect.isNetworkAvailable(getApplicationContext())){
             ActionBar();
-            ActionViewFlipper();
+            getSale();
+           // ActionViewFlipper();
+
+
             getBrand();
             getSearchHistoryShoes();
             getNewShoes();
             getFlashSaleShoes();
+
             getEventClick();
 
         }else{
@@ -96,27 +117,77 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    private void getSale() {
+
+        compositeDisposable.add(apiBanGiay.getSales()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        salesModel -> {
+                            if (salesModel.isSuccess()){
+                                salesList = salesModel.getResult();
+                                if (!salesList.isEmpty()){
+                                    List<Sales> ls= new ArrayList<>();
+                                    Date date = new Date();
+                                    for (int i=0;i<salesList.size();i++){
+                                        if ( salesList.get(i).getStartday().before(date)&& salesList.get(i).getEndday().after(date)){
+                                            ls.add(salesList.get(i));
+                                        }
+                                    }
+
+                                    salesList=ls;
+                                    o=salesList.size();
+                                    SalePagerAdapter salePagerAdapter = new SalePagerAdapter(this,salesList);
+                                    viewPager2Sale.setAdapter(salePagerAdapter);
+                                    circleIndicator3.setViewPager(viewPager2Sale);
+
+
+                                }else {
+                                    o=0;
+                                }
+
+                            }
+                            else {
+                                o=0;
+                            }
+                        },
+                        throwable -> {
+
+                            Toast.makeText(getApplicationContext(), "Khong ket noi duoc voi server", Toast.LENGTH_LONG).show();
+                        }
+                ));
+    }
+
     public void initUi() {
+        //Sale
+        viewPager2Sale= findViewById(R.id.viewpager2Sale);
+        circleIndicator3= findViewById(R.id.indicatorSale);
+        salesList = new ArrayList<>();
+        //ProgessBar
+        progressBarSaleMain = findViewById(R.id.progessbarSaleMain);
+        progressBarSearchMain = findViewById(R.id.progessbarSearchMain);
+        progressBarNewsShoesMain = findViewById(R.id.progessbarNewsShoesMain);
+        //
         ToolbarManHinhChinh = findViewById(R.id.ToolbarManHinhChinh);
-        viewfliperManHinhChinh = findViewById(R.id.viewfliperManHinhChinh);
+       // viewfliperManHinhChinh = findViewById(R.id.viewfliperManHinhChinh);
         ListviewManHinhChinh = findViewById(R.id.ListviewManHinhChinh);
         drawerlayoutManHinhChinh = findViewById(R.id.drawerlayoutManHinhChinh);
         //
-        recyclerViewNewItems = findViewById(com.example.shopsneaker.R.id.recyclerViewNewItems);
+        recyclerViewNewItems = findViewById(R.id.recyclerViewNewItems);
         RecyclerView.LayoutManager layoutManager = new androidx.recyclerview.widget.GridLayoutManager(this,2);
         recyclerViewNewItems.setLayoutManager(layoutManager);
         recyclerViewNewItems.setHasFixedSize(true);
         //
-        recyclerViewFlashSaleShoes = findViewById(com.example.shopsneaker.R.id.recyclerViewHotItems);
+        recyclerViewFlashSaleShoes = findViewById(R.id.recyclerViewHotItems);
         recyclerViewFlashSaleShoes.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL,false));
         recyclerViewFlashSaleShoes.setHasFixedSize(true);
         //
-        recyclerViewSearchHistory = findViewById(com.example.shopsneaker.R.id.recyclerViewSearchHistory);
+        recyclerViewSearchHistory = findViewById(R.id.recyclerViewSearchHistory);
         recyclerViewSearchHistory.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL,false));
         recyclerViewSearchHistory.setHasFixedSize(true);
         //
         mangSanPham = new ArrayList<>();
-        mangBrand = new java.util.ArrayList<>();
+        mangBrand = new ArrayList<>();
         shoesAdapter =new ShoesAdapter(getApplicationContext(),mangSanPham);
         recyclerViewNewItems.setAdapter(shoesAdapter);
         //
@@ -128,8 +199,8 @@ public class MainActivity extends AppCompatActivity{
         txtTBLashSale=findViewById(R.id.txt_ThongbaoFlashSale);
         txtTBNewShoes=findViewById(R.id.txt_ThongbaoNewShoes);
         txt_ThongbaoSearhHistory = findViewById(R.id.txt_ThongbaoSearhHistory);
-        icon_flashsale= findViewById(com.example.shopsneaker.R.id.iconFlashsale);
-        txtcountsp= findViewById(com.example.shopsneaker.R.id.txtcountsp);
+        icon_flashsale= findViewById(R.id.iconFlashsale);
+        txtcountsp= findViewById(R.id.txtcountsp);
 
         if(Utils.manggiohang!=null){
             //badge.setText(String.valueOf(Utils.manggiohang.size()));
@@ -137,12 +208,12 @@ public class MainActivity extends AppCompatActivity{
         else {
             Utils.manggiohang = new ArrayList<>();
         }
-        linearLayoutAdmin=findViewById(com.example.shopsneaker.R.id.linearLayoutAdmin);
+        linearLayoutAdmin=findViewById(R.id.linearLayoutAdmin);
         if (com.example.shopsneaker.utils.Utils.user_current.getRolesid()==1 || com.example.shopsneaker.utils.Utils.user_current.getRolesid()==2){
 
-            linearLayoutAdmin.setVisibility(android.view.View.VISIBLE);
+            linearLayoutAdmin.setVisibility(View.VISIBLE);
         }else {
-            linearLayoutAdmin.setVisibility(android.view.View.INVISIBLE);
+            linearLayoutAdmin.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -153,23 +224,23 @@ public class MainActivity extends AppCompatActivity{
         ToolbarManHinhChinh.setNavigationOnClickListener(v -> drawerlayoutManHinhChinh.openDrawer(GravityCompat.START));
     }
 
-    private ArrayList<String> mangQuangCao(){
+    /*private ArrayList<String> mangQuangCao(){
         ArrayList<String> mangQuangCao = new ArrayList<>();
         mangQuangCao.add(getString(R.string.anhQuangCao1));
         mangQuangCao.add(getString(R.string.anhQuangCao2));
         mangQuangCao.add(getString(R.string.anhQuangCao3));
         mangQuangCao.add(getString(R.string.anhQuangCao4));
         return mangQuangCao;
-    }
+    }*/
 
-    private void SetAnimationForViewFlipper(ViewFlipper viewFlipper){
+    /*private void SetAnimationForViewFlipper(ViewFlipper viewFlipper){
         Animation slide_in_right = AnimationUtils.loadAnimation(this,R.anim.slide_in_right);
         Animation slide_out_right = AnimationUtils.loadAnimation(this,R.anim.slide_out_right);
         viewFlipper.setOutAnimation(slide_out_right);
         viewFlipper.setInAnimation(slide_in_right);
-    }
+    }*/
 
-    private float oldX,newX;
+   /* private float oldX,newX;
     private boolean checkTouch = false;
     @SuppressLint("ClickableViewAccessibility")
     private void TouchMoveForViewFlipper(final ViewFlipper viewFlipper){
@@ -207,9 +278,9 @@ public class MainActivity extends AppCompatActivity{
             return true;
         });
 
-    }
+    }*/
 
-    private void ActionViewFlipper() {
+    /*private void ActionViewFlipper() {
         for(int i=0;i<this.mangQuangCao().size();i++){
             ImageView imageView = new ImageView(this);
             Picasso.get().load(this.mangQuangCao().get(i)).into(imageView);
@@ -221,7 +292,7 @@ public class MainActivity extends AppCompatActivity{
         this.SetAnimationForViewFlipper(viewfliperManHinhChinh);
         this.TouchMoveForViewFlipper(viewfliperManHinhChinh);
 
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -256,6 +327,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void getNewShoes() {
+        progressBarNewsShoesMain.setVisibility(View.VISIBLE);
+        txtTBNewShoes.setVisibility(View.INVISIBLE);
         compositeDisposable.add(apiBanGiay.getSanPhamMoi()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -269,16 +342,23 @@ public class MainActivity extends AppCompatActivity{
                                     recyclerViewNewItems.setAdapter(shoesAdapter);
                                     int countSP= mangSanPham.size();
                                     txtcountsp.setText("("+countSP+" sản phẩm)");
+                                }else {
+                                    txtTBNewShoes.setVisibility(View.VISIBLE);
                                 }
+                                progressBarNewsShoesMain.setVisibility(View.INVISIBLE);
                             }
                         },
                         throwable -> {
+                            txtTBNewShoes.setVisibility(View.VISIBLE);
+                            progressBarNewsShoesMain.setVisibility(View.INVISIBLE);
                             Toast.makeText(getApplicationContext(), "Khong ket noi duoc voi server", Toast.LENGTH_LONG).show();
                         }
                 ));
     }
 
     private void getFlashSaleShoes() {
+        progressBarSaleMain.setVisibility(View.VISIBLE);
+        txtTBLashSale.setVisibility(View.INVISIBLE);
         compositeDisposable.add(apiBanGiay.getFlashSaleShoes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -287,20 +367,28 @@ public class MainActivity extends AppCompatActivity{
                             if (sanPhamMoiModel.isSuccess()){
                                 mangSanPham = sanPhamMoiModel.getResult();
                                 if (!mangSanPham.isEmpty()){
-                                    txtTBLashSale.setVisibility(View.INVISIBLE);
                                     flashSaleShoesAdapter = new com.example.shopsneaker.adapter.FlashSaleShoesAdapter(getApplicationContext(),mangSanPham);
                                     recyclerViewFlashSaleShoes.setAdapter(flashSaleShoesAdapter);
+                                    txtTBLashSale.setVisibility(View.INVISIBLE);
+                                }else {
+                                    txtTBLashSale.setVisibility(View.VISIBLE);
                                 }
+                                progressBarSaleMain.setVisibility(View.INVISIBLE);
+
 
                             }
                         },
                         throwable -> {
                             Toast.makeText(getApplicationContext(),"Load Flash Sale Shoes That bai", Toast.LENGTH_LONG).show();
+                            progressBarSaleMain.setVisibility(View.INVISIBLE);
+                            txtTBLashSale.setVisibility(View.VISIBLE);
                         }
                 ));
     }
     private void getSearchHistoryShoes() {
         int accountid = Utils.user_current.getAccountid();
+        progressBarSearchMain.setVisibility(View.VISIBLE);
+        txt_ThongbaoSearhHistory.setVisibility(View.INVISIBLE);
         compositeDisposable.add(apiBanGiay.getSearchHistoryShoes(accountid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -312,12 +400,15 @@ public class MainActivity extends AppCompatActivity{
                                     txt_ThongbaoSearhHistory.setVisibility(View.INVISIBLE);
                                     searchHistoryAdapter = new com.example.shopsneaker.adapter.SearchHistoryAdapter(getApplicationContext(),mangSanPham);
                                     recyclerViewSearchHistory.setAdapter(searchHistoryAdapter);
+                                }else {
+                                    txt_ThongbaoSearhHistory.setVisibility(View.VISIBLE);
                                 }
-
-
+                                progressBarSearchMain.setVisibility(View.INVISIBLE);
                             }
                         },
                         throwable -> {
+                            progressBarSearchMain.setVisibility(View.INVISIBLE);
+                            txt_ThongbaoSearhHistory.setVisibility(View.VISIBLE);
                         }
                 ));
     }

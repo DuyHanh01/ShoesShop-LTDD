@@ -2,7 +2,13 @@
 <?php
 include "connect.php";
 
- $query = 'SELECT * FROM shoes, saledetails, sales WHERE shoes.id=saledetails.id and sales.salesid= saledetails.salesid and sales.startday<=CURRENT_DATE() and sales.endday>CURRENT_DATE() GROUP BY shoes.id ';
+$saleid = $_POST['saleid'];
+if($saleid==0){
+	$query = 'SELECT * FROM shoes, saledetails, sales WHERE shoes.id=saledetails.id and sales.salesid= saledetails.salesid and sales.startday<=CURRENT_DATE() and sales.endday>CURRENT_DATE() GROUP BY shoes.id ';
+	}else{
+		$query = 'SELECT * FROM shoes, saledetails, sales WHERE shoes.id=saledetails.id  and sales.salesid= saledetails.salesid and sales.startday<=CURRENT_DATE() and sales.endday>CURRENT_DATE()and saledetails.salesid ='. $saleid.' GROUP BY shoes.id ';
+	}
+
 
 $data = mysqli_query($conn, $query);
 $result = array();

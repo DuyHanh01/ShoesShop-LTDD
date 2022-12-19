@@ -1,52 +1,52 @@
 package com.example.shopsneaker.Fragment;
 
-import static android.view.View.*;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static com.example.shopsneaker.R.layout.fragment_shoes;
+import static com.example.shopsneaker.R.layout.fragment_shoessale;
 
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.example.shopsneaker.R.id;
+import androidx.appcompat.widget.SearchView;
 
-public class ShoesFragment extends androidx.fragment.app.Fragment {
+import com.example.shopsneaker.activity.SaleShoesActivity;
+import com.example.shopsneaker.model.Sales;
+
+public class ShoesSalesFragment extends androidx.fragment.app.Fragment{
+    int i;
     androidx.recyclerview.widget.RecyclerView recyclerView;
     com.example.shopsneaker.retrofit.ApiBanGiay apiBanGiay;
     io.reactivex.rxjava3.disposables.CompositeDisposable compositeDisposable = new io.reactivex.rxjava3.disposables.CompositeDisposable();
-    android.widget.ImageView img_newShoesByBrand;
-    int page=1;
-    int brandid;
-    String sortid="sort";
-    public String brandname;
-    boolean banchay=false, moinhat=false,gia=false;
     java.util.List<com.example.shopsneaker.model.Shoes> shoesList;
-    com.example.shopsneaker.model.SearchHistoryModel searchHistoryModel;
-    TextView txtcountsp;
-    androidx.appcompat.widget.SearchView searchView;
-    //LinearLayout linearLayoutSort;
-    //ImageView imageThemgiohang;
-    com.example.shopsneaker.model.Shoes shoes;
-    com.nex3z.notificationbadge.NotificationBadge badge;
+    SearchView searchView;
+    int sort,saleid;
+    android.widget.ProgressBar progressBarShoesSale;
+
     private com.example.shopsneaker.adapter.ShoesAdapter shoesAdapter;
-    int sort;
-    android.content.Context mContext;
-    android.view.MenuItem menuItem;
-    ProgressBar progressBarShoes;
-    TextView txtNotifyShoes;
+    com.example.shopsneaker.model.SearchHistoryModel searchHistoryModel;
+    android.widget.TextView txtcountsp, txtNotifyShoesSale;
 
-
-
-    public ShoesFragment(int sort) {
+    public ShoesSalesFragment(int sort) {
         this.sort = sort;
     }
 
-    public ShoesFragment() {
+
+    public ShoesSalesFragment() {
+    }
+    @Override
+    public void onCreate(@androidx.annotation.Nullable android.os.Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+
     }
 
     @androidx.annotation.Nullable
     @Override
     public View onCreateView(@androidx.annotation.NonNull android.view.LayoutInflater inflater, @androidx.annotation.Nullable android.view.ViewGroup container, @androidx.annotation.Nullable android.os.Bundle savedInstanceState) {
-        return inflater.inflate(fragment_shoes,container,false);
+
+            return inflater.inflate(fragment_shoessale,container,false);
+
+        //android.widget.Toast.makeText(getContext(), String.valueOf(saleid), android.widget.Toast.LENGTH_SHORT).show();
 
     }
 
@@ -54,38 +54,19 @@ public class ShoesFragment extends androidx.fragment.app.Fragment {
     public void onViewCreated(@androidx.annotation.NonNull View view, @androidx.annotation.Nullable android.os.Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         apiBanGiay = com.example.shopsneaker.retrofit.RetrofitClient.getInstance(com.example.shopsneaker.utils.Utils.BASE_URL).create(com.example.shopsneaker.retrofit.ApiBanGiay.class);
-        Init(view);
 
         android.os.Bundle bundle = getArguments();
-        if(bundle != null)
-        {
-            com.example.shopsneaker.model.Brand sv = (com.example.shopsneaker.model.Brand) bundle.getSerializable("KEY_SER_SV");
-            brandid= sv.getBrandid();
+        if(bundle != null) {
+            Sales sv = (Sales)
+                    bundle.getSerializable("object_sale");
+            saleid = sv.getSalesid();
 
         }
 
+       Init(view);
+
         getData();
-        // brandid = getIntent().getIntExtra("brandid",1);
-        // brandname = getIntent().getStringExtra("brandname");
     }
-
-    @Override
-    public void onCreate(@androidx.annotation.Nullable android.os.Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        super.onCreate(savedInstanceState);
-        /*OnBackPressedCallback callback = new OnBackPressedCallback(true *//* enabled by default *//*) {
-            @Override
-            public void handleOnBackPressed() {
-                if (!searchView.isIconified()){
-                    searchView.setIconified(true);
-
-                    return;
-                }
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);*/
-    }
-
     @Override
     public void onCreateOptionsMenu(@androidx.annotation.NonNull android.view.Menu menu, @androidx.annotation.NonNull android.view.MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -94,7 +75,7 @@ public class ShoesFragment extends androidx.fragment.app.Fragment {
 //       searchView= (SearchView) MenuItemCompat.getActionView(menuItem);
 //       searchView.setIconified(true);
         android.app.SearchManager searchManager = (android.app.SearchManager) getActivity().getSystemService(android.content.Context.SEARCH_SERVICE);
-        searchView = (androidx.appcompat.widget.SearchView) menu.findItem(id.menuSearch).getActionView();
+        searchView = (androidx.appcompat.widget.SearchView) menu.findItem(com.example.shopsneaker.R.id.menuSearch).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
@@ -130,56 +111,10 @@ public class ShoesFragment extends androidx.fragment.app.Fragment {
         });
 
     }
-
-    /* @Override
-    public void onCreateOptionsMenu(@androidx.annotation.NonNull android.view.Menu menu, @androidx.annotation.NonNull android.view.MenuInflater inflater) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        SearchManager searchManager =(SearchManager) getSystemService(android.content.Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.menuSearch).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                linearLayoutSort.setVisibility(View.INVISIBLE);
-                shoesAdapter.getFilter().filter(query);
-                int countSP= shoesAdapter.getItemCount();
-                txtcountsp.setText("("+countSP+" sản phẩm)");
-                String keyword = query.toString();
-                if (shoesAdapter.getItemCount()>0) {
-                    int accountid = Utils.user_current.getAccountid();
-                    compositeDisposable.add(apiBanGiay.SearchHistory(accountid,keyword).subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(searchHistoryModel -> {
-
-                                    },
-                                    throwable -> {
-                                        Toast.makeText(getApplicationContext(),searchHistoryModel.getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-
-                            ));
-                }
-                return false;
-
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                linearLayoutSort.setVisibility(View.INVISIBLE);
-                shoesAdapter.getFilter().filter(newText);
-                int countSP= shoesAdapter.getItemCount();
-                txtcountsp.setText("("+countSP+" sản phẩm)");
-                return false;
-            }
-        });
-        return true;
-    }*/
-
     public void getData() {
-        txtNotifyShoes.setVisibility(INVISIBLE);
-        progressBarShoes.setVisibility(VISIBLE);
-        compositeDisposable.add(apiBanGiay.getShoesByBrand(page,brandid,sortid)
-
+        txtNotifyShoesSale.setVisibility(INVISIBLE);
+        progressBarShoesSale.setVisibility(VISIBLE);
+        compositeDisposable.add(apiBanGiay.getSaleShoes(i)
                 .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
                 .observeOn(io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread())
                 .subscribe(
@@ -187,7 +122,7 @@ public class ShoesFragment extends androidx.fragment.app.Fragment {
                             if (shoesModel.isSuccess()){
                                 shoesList = shoesModel.getResult();
                                 if (!shoesList.isEmpty()){
-                                    txtNotifyShoes.setVisibility(INVISIBLE);
+                                    txtNotifyShoesSale.setVisibility(INVISIBLE);
                                     switch (sort){
                                         case 1:
                                             java.util.Collections.sort(shoesList, (o1, o2) -> o2.getPurchased()-o1.getPurchased());
@@ -208,55 +143,45 @@ public class ShoesFragment extends androidx.fragment.app.Fragment {
                                                 }
                                             });
                                             break;
-                                        case 4:
-                                            //Collections.sort(shoesList, (o1, o2) -> o2.getShoesNew()-o1.getShoesNew());
-                                            java.util.List<com.example.shopsneaker.model.Shoes> ls= new java.util.ArrayList<>();
-                                            java.util.Date date = new java.util.Date();
-                                            for (int i=0;i<shoesList.size();i++){
-                                                if (shoesList.get(i).getSaleprice()!=0 && shoesList.get(i).getStartday().before(date)&& shoesList.get(i).getEndday().after(date)){
-                                                    ls.add(shoesList.get(i));
-                                                }
-                                            }
-                                            if (ls.isEmpty()){
-                                                txtNotifyShoes.setVisibility(VISIBLE);
-                                            }
-                                            shoesList=ls;
-                                            break;
+
                                     }
                                     shoesAdapter = new com.example.shopsneaker.adapter.ShoesAdapter(getContext(),shoesList);
                                     recyclerView.setAdapter(shoesAdapter);
                                 }else {
-                                    txtNotifyShoes.setVisibility(VISIBLE);
+                                    txtNotifyShoesSale.setVisibility(VISIBLE);
                                 }
-                                progressBarShoes.setVisibility(INVISIBLE);
-
+                                progressBarShoesSale.setVisibility(INVISIBLE);
+                                int countSP= shoesList.size();
+                                txtcountsp.setText("("+countSP+" sản phẩm)");
+                            }else {
+                                progressBarShoesSale.setVisibility(INVISIBLE);
                                 int countSP= shoesList.size();
                                 txtcountsp.setText("("+countSP+" sản phẩm)");
                             }
-
                         },
                         throwable -> {
-                            progressBarShoes.setVisibility(INVISIBLE);
-                            txtNotifyShoes.setVisibility(VISIBLE);
-                            android.widget.Toast.makeText(getContext(),"Load san pham theo hang that bai", android.widget.Toast.LENGTH_LONG).show();
+                            progressBarShoesSale.setVisibility(INVISIBLE);
+                            android.widget.Toast.makeText(getContext(),"Load sale shoes fail", android.widget.Toast.LENGTH_LONG).show();
 
                         }
                 ));
+
     }
     private void Init(View view) {
-        txtNotifyShoes= view.findViewById(id.txtNotifyShoes);
-        progressBarShoes= view.findViewById(id.progessbarShoes);
-        recyclerView=view.findViewById(id.recycleviewShoesByBrand);
+        txtNotifyShoesSale= view.findViewById(com.example.shopsneaker.R.id.txtNotifyShoesSale);
+        progressBarShoesSale= view.findViewById(com.example.shopsneaker.R.id.progessbarShoesSale);
+        recyclerView=view.findViewById(com.example.shopsneaker.R.id.recycleviewShoesSale);
         //
         androidx.recyclerview.widget.RecyclerView.LayoutManager layoutManager = new androidx.recyclerview.widget.GridLayoutManager(view.getContext(),2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         shoesList = new java.util.ArrayList<>();
-        brandid= com.example.shopsneaker.activity.MainActivity.id;
+        //saleid= com.example.shopsneaker.activity.MainActivity.id;
 //        txt_sortBanChay=view.findViewById(id.banchay);
 //        txt_sortMoiNhat=view.findViewById(id.moinhat);
 //        txt_sortGia=view.findViewById(id.giathapdencao);
         //linearLayoutSort = view.findViewById(id.linearlayoutSort);
-        txtcountsp= view.findViewById(id.txtcountsp);
+        txtcountsp= view.findViewById(com.example.shopsneaker.R.id.txtcountspsale);
+        i= SaleShoesActivity.saleid;
     }
 }

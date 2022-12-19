@@ -159,8 +159,11 @@ public interface ApiBanGiay {
     );
     @retrofit2.http.GET("GetFlashSaleShoes.php")
     io.reactivex.rxjava3.core.Observable<com.example.shopsneaker.model.ShoesModel> getFlashSaleShoes();
-    @retrofit2.http.GET("GetSaleShoes.php")
-    io.reactivex.rxjava3.core.Observable<com.example.shopsneaker.model.ShoesModel> getSaleShoes();
+    @retrofit2.http.POST("GetSaleShoes.php")
+    @FormUrlEncoded
+    io.reactivex.rxjava3.core.Observable<com.example.shopsneaker.model.ShoesModel> getSaleShoes(
+            @Field("saleid") int saleid
+    );
 
     @retrofit2.http.POST("getSizeTable.php")
     @FormUrlEncoded
