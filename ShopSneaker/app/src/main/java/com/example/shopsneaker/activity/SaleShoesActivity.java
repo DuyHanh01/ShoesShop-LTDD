@@ -1,5 +1,6 @@
 package com.example.shopsneaker.activity;
 
+import static com.example.shopsneaker.R.id.salesName;
 import static com.example.shopsneaker.R.id.tab_layoutShoes;
 import static com.example.shopsneaker.R.id.tab_layoutShoesSale;
 import static com.example.shopsneaker.R.id.viewPager2Shoes;
@@ -44,13 +45,14 @@ public class SaleShoesActivity extends AppCompatActivity {
     private ViewPager2 viewPagerShoesSale;
     private ShoesSalePagerAdapter shoesPagerAdapterShoesSale;
     public static int saleid;
+    String salename;
     @Override
     protected void onCreate(@androidx.annotation.Nullable android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sale_shoes);
         Intent intent = getIntent();
         saleid = intent.getIntExtra("saleid",0);
-        String salename = intent.getStringExtra("salename");
+        salename = intent.getStringExtra("salename");
 
 
         Sales sv = new Sales();
@@ -86,7 +88,11 @@ public class SaleShoesActivity extends AppCompatActivity {
     private void ActionToolBar() {
         setSupportActionBar(toolbarShoesSale);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Khuyến mãi");
+        if (saleid==0){
+            getSupportActionBar().setTitle(salename);
+        }else {
+            getSupportActionBar().setTitle("Khuyễn mãi ("+salename+")");
+        }
         toolbarShoesSale.setNavigationOnClickListener(view -> {
             android.content.Intent intent =new android.content.Intent(getApplicationContext(), com.example.shopsneaker.activity.MainActivity.class);
             startActivity(intent);

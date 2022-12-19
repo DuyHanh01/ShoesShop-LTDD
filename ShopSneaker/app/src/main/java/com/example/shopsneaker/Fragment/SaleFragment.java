@@ -36,6 +36,7 @@ public class SaleFragment extends Fragment {
         Random rand = new Random();
 
         Glide.with(this).load(givenList.get(rand.nextInt(givenList.size()))).into(imageView);
+
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
         txtBuyNow.setOnClickListener(new android.view.View.OnClickListener() {

@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +33,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.adapter.BrandAdapter;
@@ -84,6 +87,18 @@ public class MainActivity extends AppCompatActivity{
     private ViewPager2 viewPager2Sale;
     private CircleIndicator3 circleIndicator3;
     private RelativeLayout rl;
+    Handler handler = new Handler(Looper.getMainLooper());
+
+    private Runnable runnable= () -> {
+
+        int currentPosition = viewPager2Sale.getCurrentItem();
+        if(currentPosition ==o-1){
+            viewPager2Sale.setCurrentItem(0);
+        }else {
+            viewPager2Sale.setCurrentItem(currentPosition +1);
+        }
+
+    };
 
     @android.annotation.SuppressLint("MissingInflatedId")
     @Override
@@ -102,19 +117,38 @@ public class MainActivity extends AppCompatActivity{
             ActionBar();
             getSale();
            // ActionViewFlipper();
-
-
             getBrand();
             getSearchHistoryShoes();
             getNewShoes();
             getFlashSaleShoes();
-
             getEventClick();
+            viewPager2Sale.registerOnPageChangeCallback(new OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    handler.removeCallbacks(runnable);
+                    handler.postDelayed(runnable,4000);
+
+                }
+            });
 
         }else{
             checkconnect.ShowToast_Short(getApplicationContext(),"Bạn kiểm tra lại kết nối ");
             finish();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handler.postDelayed(runnable,4000);
     }
 
     private void getSale() {
@@ -469,6 +503,8 @@ public class MainActivity extends AppCompatActivity{
 
         txtflashsaleXemThem.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(),SaleShoesActivity.class);
+            intent.putExtra("saleid",0);
+            intent.putExtra("salename","Khuyến mãi");
             startActivity(intent);
         });
         linearLayoutAdmin.setOnClickListener(view -> {
