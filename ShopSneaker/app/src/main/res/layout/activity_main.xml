@@ -19,7 +19,7 @@
                 android:id="@+id/ToolbarManHinhChinh"
                 app:title="VLTH Store"
                 app:titleTextColor="#fff"
-                android:background="#FFA60C0C"
+                android:background="@color/colorToolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
             </androidx.appcompat.widget.Toolbar>
@@ -221,7 +221,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="#FFA60C0C">
+            android:background="@color/colorPrimary">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -230,7 +230,7 @@
                     android:id="@+id/ListviewManHinhChinh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#FFA60C0C"
+                    android:background="@color/colorPrimary"
                     tools:ignore="MissingConstraints">
                 </ListView>
 

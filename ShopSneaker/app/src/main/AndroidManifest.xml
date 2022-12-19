@@ -19,6 +19,13 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".activity.ShoesActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.AccountManagerActivity"
             android:exported="false" />
         <activity
@@ -66,6 +73,7 @@
         <activity
             android:name=".activity.UpdatePostsActivity"
             android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
@@ -122,9 +130,6 @@
             android:name=".activity.SaleShoesActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ShoesByBrandActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -178,9 +183,10 @@
         <activity
             android:name=".activity.AddInforActivity"
             android:exported="true" />
+
         <meta-data
             android:name="CLOUDINARY_URL"
-            android:value="cloudinary://512743237357516:QR8tyj6HezL9s4gWZwWTB9ffxDQ@du7sfuuey"/>
+            android:value="cloudinary://512743237357516:QR8tyj6HezL9s4gWZwWTB9ffxDQ@du7sfuuey" />
     </application>
 
 </manifest>

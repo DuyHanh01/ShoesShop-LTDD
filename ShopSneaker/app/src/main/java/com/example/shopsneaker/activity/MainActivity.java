@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,7 +37,6 @@ import com.example.shopsneaker.retrofit.ApiBanGiay;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import com.example.shopsneaker.utils.checkconnect;
-import com.google.android.material.navigation.NavigationView;
 import com.nex3z.notificationbadge.NotificationBadge;
 import com.squareup.picasso.Picasso;
 
@@ -69,6 +67,7 @@ public class MainActivity extends AppCompatActivity{
     private NotificationBadge badge;
     private MenuItem menusearch;
     private SearchView searchView;
+    public static int id;
     private android.widget.LinearLayout linearLayoutAdmin;
 
     @Override
@@ -330,9 +329,9 @@ public class MainActivity extends AppCompatActivity{
                         brandModel -> {
                             if(brandModel.isSuccess()){
                                 mangBrand = brandModel.getResult();
-                                mangBrand.add(0, new com.example.shopsneaker.model.Brand(0,"Tất cả sản phẩm","",""));
-                                mangBrand.add( mangBrand.size(),new com.example.shopsneaker.model.Brand(0,"Liên hệ","Đây là trang lien he","https://sv3.anh365.com/images/2022/04/18/imaged7179bbdfb64d3a1.png"));
-                                mangBrand.add(mangBrand.size(), new com.example.shopsneaker.model.Brand(0,"MarketPlace","Đây là trang giao dịch","https://img.icons8.com/external-becris-flat-becris/344/external-market-business-world-becris-flat-becris.png"));
+                                mangBrand.add(0, new Brand(0,"Tất cả sản phẩm","",""));
+                                mangBrand.add( mangBrand.size(),new Brand(0,"Liên hệ","Đây là trang lien he","https://sv3.anh365.com/images/2022/04/18/imaged7179bbdfb64d3a1.png"));
+                                mangBrand.add(mangBrand.size(), new Brand(0,"MarketPlace","Đây là trang giao dịch","https://img.icons8.com/external-becris-flat-becris/344/external-market-business-world-becris-flat-becris.png"));
                                 brandAdapter=new com.example.shopsneaker.adapter.BrandAdapter(getApplicationContext(),mangBrand);
                                 ListviewManHinhChinh.setAdapter(brandAdapter);
                             }
@@ -349,9 +348,12 @@ public class MainActivity extends AppCompatActivity{
         ListviewManHinhChinh.setOnItemClickListener((adapterView, view, i, l) -> {
             drawerlayoutManHinhChinh.closeDrawer(GravityCompat.START);
             if (i == 0 ) {
-                Intent intent= new Intent(getApplicationContext(), ShoesByBrandActivity.class);
-                intent.putExtra("brandid",0);
-                intent.putExtra("brandname","Tất cả sản phẩm");
+                Intent intent= new Intent(getApplicationContext(), ShoesActivity.class);
+                Bundle bundle = new Bundle();
+                Brand sv = new Brand (0,"Tất cả sản phẩm");
+                bundle.putSerializable("KEY_SER_SV",  sv);
+                intent.putExtras(bundle);
+                id=0;
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }else if (i== mangBrand.size()-1) {
@@ -363,9 +365,12 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
             else {
-                Intent intent= new Intent(getApplicationContext(), ShoesByBrandActivity.class);
-                intent.putExtra("brandid",mangBrand.get(i).getBrandid());
-                intent.putExtra("brandname",mangBrand.get(i).getBrandname());
+                Intent intent= new Intent(getApplicationContext(), ShoesActivity.class);
+                Bundle bundle = new Bundle();
+                Brand sv = new Brand (mangBrand.get(i).getBrandid(),mangBrand.get(i).getBrandname());
+                bundle.putSerializable("KEY_SER_SV",  sv);
+                intent.putExtras(bundle);
+                id=mangBrand.get(i).getBrandid();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

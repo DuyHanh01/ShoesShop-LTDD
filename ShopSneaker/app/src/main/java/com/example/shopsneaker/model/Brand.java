@@ -1,6 +1,6 @@
 package com.example.shopsneaker.model;
 
-public class Brand {
+public class Brand implements java.io.Serializable {
 
     int brandid;
     String brandname;
@@ -11,6 +11,11 @@ public class Brand {
     int turnover;
 
     public Brand() {
+    }
+
+    public Brand(int brandid, String brandname) {
+        this.brandid = brandid;
+        this.brandname = brandname;
     }
 
     public Brand(int brandid, String brandname, String information, String logo) {

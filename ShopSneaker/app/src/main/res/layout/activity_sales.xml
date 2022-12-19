@@ -22,7 +22,6 @@
         android:orientation="horizontal">
         <TextView
             android:id="@+id/txtcountsp"
-            app:layout_constraintTop_toBottomOf="@id/linetextcount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
