@@ -34,10 +34,58 @@ public class AdminActivity extends AppCompatActivity {
             Utils.user_current = user;
         }
         Init();
+        actionToolbar();
         EventClick();
     }
+    private void actionToolbar() {
+        setSupportActionBar(toolbar);
+        androidx.appcompat.app.ActionBar actionBar=getSupportActionBar();
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(com.example.shopsneaker.R.menu.menu_admin1,menu);
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@androidx.annotation.NonNull android.view.MenuItem item) {
+        switch (item.getItemId()){
+            case com.example.shopsneaker.R.id.menuChangpass_Admin:
+                Intent intent = new Intent(getApplicationContext(), ChangePassActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case com.example.shopsneaker.R.id.menuLogout_Admin:
+                androidx.appcompat.app.AlertDialog.Builder b = new androidx.appcompat.app.AlertDialog.Builder(this);
+                //Thiết lập tiêu đề
+                b.setTitle("Thông báo");
+                b.setMessage("Bạn chắc chắn muốn đăng xuất ?");
+                b.setPositiveButton("Đăng xuất", new android.content.DialogInterface.OnClickListener() {
+                    public void onClick(android.content.DialogInterface dialog, int id) {
+                        io.paperdb.Paper.book().delete("user");
+                        com.example.shopsneaker.utils.Utils.user_current.setUsername(null);
+                        com.example.shopsneaker.utils.Utils.user_current.setPassword(null);
+                        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.shopsneaker.activity.LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                b.setNegativeButton("Ở lại", new android.content.DialogInterface.OnClickListener() {
+                    public void onClick(android.content.DialogInterface dialog, int id) {
+
+                        return;
+                    }
+                });//Tạo dialog
+                androidx.appcompat.app.AlertDialog al = b.create();//Hiển thị
+                al.show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void Init() {
-        logout = findViewById(R.id.logout);
+        //logout = findViewById(R.id.logout);
         listView = findViewById(R.id.lv_manager);
         arrayList = new java.util.ArrayList<>();
         if (Utils.user_current.getRolesid()== 1){
@@ -98,7 +146,7 @@ public class AdminActivity extends AppCompatActivity {
             }
 
         });
-        logout.setOnClickListener(view -> {
+       /* logout.setOnClickListener(view -> {
             androidx.appcompat.app.AlertDialog.Builder b = new androidx.appcompat.app.AlertDialog.Builder(view.getContext());
             //Thiết lập tiêu đề
             b.setTitle("Thông báo");
@@ -121,7 +169,7 @@ public class AdminActivity extends AppCompatActivity {
             });//Tạo dialog
             androidx.appcompat.app.AlertDialog al = b.create();//Hiển thị
             al.show();
-        });
+        });*/
 
     }
 }

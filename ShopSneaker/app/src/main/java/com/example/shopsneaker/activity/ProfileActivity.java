@@ -68,6 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void initControl(){
         txtEdit.setOnClickListener(v -> {
+
             Intent intent = new Intent(getApplicationContext(), ThongTinKhachHangActivity.class);
             startActivity(intent);
         });

@@ -40,9 +40,16 @@ public class ChangePassActivity extends AppCompatActivity {
 
 
         btnHuy.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-            startActivity(intent);
-            finish();
+            if (com.example.shopsneaker.utils.Utils.user_current.getRolesid()==1|| com.example.shopsneaker.utils.Utils.user_current.getRolesid()==2){
+                Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+                startActivity(intent);
+                finish();
+            }else {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
         });
     }
 
@@ -80,9 +87,17 @@ public class ChangePassActivity extends AppCompatActivity {
                                 userModel -> {
                                     if(userModel.isSuccess()){
                                         Paper.book().write("username",strnewpass);
-                                        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                                        startActivity(intent);
-                                        finish();
+                                        android.widget.Toast.makeText(this, "Đổi mật khẩu thành công", android.widget.Toast.LENGTH_SHORT).show();
+                                        if (com.example.shopsneaker.utils.Utils.user_current.getRolesid()==1|| com.example.shopsneaker.utils.Utils.user_current.getRolesid()==2){
+                                            Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }else {
+                                            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+
                                     }else {
                                         Toast.makeText(getApplicationContext(),userModel.getMessage()+"", Toast.LENGTH_LONG).show();
                                     }

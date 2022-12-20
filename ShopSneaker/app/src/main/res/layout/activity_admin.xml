@@ -15,19 +15,20 @@
         app:title="Admin"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
-        <FrameLayout
+        <!--<FrameLayout
             android:id="@+id/frametoolbar"
             android:layout_width="55dp"
             android:layout_height="?attr/actionBarSize"
             android:layout_marginRight="10dp"
             android:layout_gravity="right">
+
             <ImageView
                 android:id="@+id/logout"
                 android:layout_marginTop="15dp"
                 android:src="@drawable/ic_baseline_logout"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
-        </FrameLayout>
+        </FrameLayout>-->
     </androidx.appcompat.widget.Toolbar>
     <ListView
         android:id="@+id/lv_manager"
