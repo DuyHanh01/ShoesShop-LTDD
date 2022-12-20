@@ -45,6 +45,13 @@
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/cancelorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_gravity="right"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

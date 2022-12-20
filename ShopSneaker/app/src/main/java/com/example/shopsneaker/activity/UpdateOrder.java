@@ -1,5 +1,8 @@
 package com.example.shopsneaker.activity;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,6 +45,7 @@ public class UpdateOrder extends AppCompatActivity {
     private int OrderID;
     private String tt;
     private String status;
+    int statusid;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiService apiBanGiay;
     Toolbar toolbarOrder;
@@ -66,10 +70,23 @@ public class UpdateOrder extends AppCompatActivity {
 
     private void InitData() {
         List<String> item = new ArrayList<>();
+        item.add("Đang chờ duyệt");
         item.add("Đã duyệt");
         item.add("Đang giao");
         item.add("Giao thành công");
         item.add("Đã hủy");
+        if (statusid==1){
+            btnAccept.setVisibility(INVISIBLE);
+            btnAccept.setEnabled(false);
+        }
+        if (statusid==2){
+            item.remove(0);
+        }else if (statusid==3){
+            item.remove(0);
+            item.remove(0);
+        }
+
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateOrder.this,android.R.layout.simple_spinner_item,item);
         spnStatus.setAdapter(adapter);
         int spinnerPosition = adapter.getPosition(tt);
@@ -78,6 +95,13 @@ public class UpdateOrder extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 status = spnStatus.getSelectedItem().toString().trim();
+                if (status.equals("Đang chờ duyệt") ||status.equals("Giao thành công")||status.equals("Đã hủy")){
+                    btnAccept.setVisibility(INVISIBLE);
+                    btnAccept.setEnabled(false);
+                }else {
+                    btnAccept.setVisibility(VISIBLE);
+                    btnAccept.setEnabled(true);
+                }
             }
 
             @Override
@@ -118,7 +142,7 @@ public class UpdateOrder extends AppCompatActivity {
         orderUp = (Order) intent.getSerializableExtra("update");
         OrderID = ((Order) intent.getSerializableExtra("update")).getOrderid();
         orderid = orderUp.getOrderid();
-
+        statusid = orderUp.getStatusid();
         tt = orderUp.getStatusname();
         apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         toolbarOrder = findViewById(R.id.toorupdateorder);
@@ -127,8 +151,8 @@ public class UpdateOrder extends AppCompatActivity {
         spnStatus = findViewById(R.id.spnstatus);
         btnAccept = findViewById(R.id.btnaccept);
         if(tt.equals("Giao thành công") || tt.equals("Đã hủy")){
-            btnAccept.setVisibility(View.INVISIBLE);
-            spnStatus.setVisibility(View.INVISIBLE);
+            btnAccept.setVisibility(INVISIBLE);
+            spnStatus.setVisibility(INVISIBLE);
         }
         recyclerView = findViewById(R.id.rcvOrderDetails);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
