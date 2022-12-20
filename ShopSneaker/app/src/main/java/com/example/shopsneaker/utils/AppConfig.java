@@ -7,8 +7,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AppConfig {
-    private static String BASE_URL = "http://192.168.130.249:8080/server/";
-    //private static String BASE_URL = Utils.BASE_URL;
+    //private static String BASE_URL = "http://192.168.130.249:8080/server/";
+    private static String BASE_URL = Utils.BASE_URL;
     static Gson gson = new GsonBuilder()
             .setLenient()
             .setDateFormat ("yyyy-MM-dd HH:mm:ss")
