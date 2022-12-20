@@ -252,6 +252,7 @@ public class AddPostsActivity extends AppCompatActivity {
             com.cloudinary.android.MediaManager.get().upload(u).option("folder","ShoesShop/Post/").callback(new com.cloudinary.android.callback.UploadCallback() {
                 @Override
                 public void onStart(String requestId) {
+
                     //binding.anh.setText("Start");
                 }
 

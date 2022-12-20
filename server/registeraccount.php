@@ -1,7 +1,8 @@
 <?php
  include "connect.php";
 $user = $_POST['username'];
-$pass= md5($_POST['password']);
+//$pass= md5($_POST['password']);
+$pass= $_POST['password'];
 // $roleid = $_POST['roleid'];
 
 // check data

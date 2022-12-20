@@ -2,7 +2,8 @@
  include "connect.php";
 
 $usn = $_POST['username'];
-$pass=md5($_POST['password']);
+//$pass=md5($_POST['password']);
+$pass=$_POST['password'];
 // check data
 
 $query = "SELECT * FROM account WHERE username = '$usn' and password = '$pass'";

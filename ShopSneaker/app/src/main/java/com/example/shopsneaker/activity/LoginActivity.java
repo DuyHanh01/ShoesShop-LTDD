@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         btnLogin.setOnClickListener(v -> {
             String struser = edtusername.getText().toString().trim();
-            String strpass = edtpassword.getText().toString().trim();
+            String strpass = Utils.getMD5( edtpassword.getText().toString().trim());
             if (TextUtils.isEmpty(struser)) {
                 Toast.makeText(getApplicationContext(), "Bạn chưa nhập tên đang nhập", Toast.LENGTH_LONG).show();
             } else if (TextUtils.isEmpty(strpass)) {

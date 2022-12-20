@@ -78,7 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else {
             if(strpass.equals(strrepass)){
-                compositeDisposable.add(apiBanGiay.ReGister(struser,strpass).subscribeOn(Schedulers.io())
+                String pass = Utils.getMD5(strpass);
+                compositeDisposable.add(apiBanGiay.ReGister(struser,pass).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 userModel -> {
