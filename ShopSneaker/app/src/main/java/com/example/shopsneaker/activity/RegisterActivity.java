@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_register);
         initView();
-        initControll();
+        initControl();
     }
 
     public static boolean isValidPhone(String phone)
@@ -54,8 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-    private void initControll() {
-        btnRegister.setOnClickListener(v -> ReGisterAccount());
+    private void initControl() {
+        btnRegister.setOnClickListener(v -> registerAccount());
     }
 
     public static boolean isValidPassword(String password) {
@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-    private void ReGisterAccount() {
+    private void registerAccount() {
         String struser = edtUserName.getText().toString().trim();
         String strpass = edtPassWord.getText().toString().trim();
         String strrepass = repass.getText().toString().trim();

@@ -91,7 +91,7 @@ public class ActivityOTP extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Intent intent;
                                     if(value == 1){
-                                        intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        intent = new Intent(getApplicationContext(), ResetPassActivity.class);
                                     }else{
                                         intent = new Intent(getApplicationContext(), AddInforActivity.class);
                                     }

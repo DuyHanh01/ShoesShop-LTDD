@@ -1,83 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
     android:orientation="vertical"
-    android:scrollbarAlwaysDrawVerticalTrack="true"
-    tools:context=".activity.ResetPassActivity">
-
+    android:padding="20dp"
+    tools:context=".activity.RegisterActivity">
     <TextView
-        android:id="@+id/login_title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center_horizontal"
-        android:text="Forget Password"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="26sp"
-        android:textStyle="bold" />
-
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Reset Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></TextView>
     <RelativeLayout
-        android:layout_width="500dp"
-        android:layout_height="600dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_below="@+id/login_title"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginVertical="20dp"
         android:background="@drawable/img"
         android:elevation="4dp"
         android:orientation="vertical"
         android:padding="20dp">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/borderkhung"
-            android:orientation="vertical"
-            android:paddingTop="30dp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtresetpass"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_baseline_person_24"
-                    android:drawableTint="@color/black"
-                    android:hint="Email"
-                    android:inputType="textPersonName"
-                    android:singleLine="true"
-                    android:textColorHint="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnforgetpass"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#d67601"
-                android:text="Quên mật khẩu"
-                android:textAllCaps="false"
-                android:textColor="#212121"
-                android:textSize="18sp" />
-
-
-        </LinearLayout>
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/user_profile_photo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_below="@+id/login_title"
-        android:layout_centerHorizontal="true"
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"
+        android:id="@+id/txtPassDK"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"
+        android:maxLength="100"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"/>
+    <EditText
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"
+        android:id="@+id/txtrePassDK"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"
+        android:maxLength="100"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"/>
 
-        android:elevation="5dp"
-        android:src="@drawable/ic_person"
-        tools:ignore="SpeakableTextPresentCheck" />
-</RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textColor="@color/white"
+            android:id="@+id/btnXacNhan"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimary"
+            android:text="Xác nhận" />
+        <ProgressBar
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:id="@+id/progressbarRegister"/>
+    </FrameLayout>
+
+
+</LinearLayout>

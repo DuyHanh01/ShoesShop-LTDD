@@ -140,10 +140,11 @@ public interface ApiService {
             @Field("username") String username
     );
 
-    @retrofit2.http.POST("sendmail.php")
+    @retrofit2.http.POST("resetpass.php")
     @FormUrlEncoded
     io.reactivex.rxjava3.core.Observable<com.example.shopsneaker.model.UserModel> resetPass(
-            @Field("username") String username
+            @Field("username") String username,
+            @Field("password") String password
     );
 
     @retrofit2.http.POST("changepass.php")

@@ -294,25 +294,20 @@ public class PaymentActivity extends AppCompatActivity {
                 //Thiết lập tiêu đề
                 b.setTitle("Xác nhận");
                 b.setMessage("Bạn có đồng ý đặt hàng và thanh toán bằng momo không?");
-                b.setPositiveButton("Đồng ý", new android.content.DialogInterface.OnClickListener() {
-                    public void onClick(android.content.DialogInterface dialog, int id) {
-
-                        compositeDisposable.add(apiBanGiay.getCreateOrder(email,Name,Phone,Address,Note,tongtien,AccountId,0,new Gson().toJson(Utils.manggiohang))
-                                .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
-                                .observeOn(io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread())
-                                .subscribe(
-                                        userModel -> {
-                                            int orderid = order.getOrderid();
-                                            iddonhang = orderid+1;
-                                            String s = String.valueOf(iddonhang);
-                                            requestPayment(s);
-                                        },
-                                        throwable -> {
-                                            Toast.makeText(getApplicationContext(), "Không kết nối được server", Toast.LENGTH_SHORT).show();
-                                        }
-                                ));
-                    }
-                });
+                b.setPositiveButton("Đồng ý", (dialog, id) -> compositeDisposable.add(apiBanGiay.getCreateOrder(email,Name,Phone,Address,Note,tongtien,AccountId,0,new Gson().toJson(Utils.manggiohang))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                userModel -> {
+                                    int orderid = order.getOrderid();
+                                    iddonhang = orderid+1;
+                                    String s = String.valueOf(iddonhang);
+                                    requestPayment(s);
+                                },
+                                throwable -> {
+                                    Toast.makeText(getApplicationContext(), "Không kết nối được server", Toast.LENGTH_SHORT).show();
+                                }
+                        )));
 //Nút Cancel
                 b.setNegativeButton("Không đồng ý", (dialog, id) -> dialog.cancel());
 //Tạo dialog

@@ -32,6 +32,9 @@
             android:name=".activity.ActivityOTP"
             android:exported="false" />
         <activity
+            android:name=".activity.ResetPassActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ActivityForgotPassword"
             android:exported="false" />
         <activity
@@ -176,9 +179,6 @@
             android:exported="true" />
         <activity
             android:name=".activity.ContactActivity3"
-            android:exported="true" />
-        <activity
-            android:name=".activity.ResetPassActivity"
             android:exported="true" />
         <activity
             android:name=".activity.ProfileActivity"
