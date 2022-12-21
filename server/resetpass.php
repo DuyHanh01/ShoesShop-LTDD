@@ -1,24 +1,27 @@
 <?php
 include "connect.php";
 
-if($_GET['key'] && $_GET['reset'])
-{
-  $usn=$_GET['key'];
-  $pass=$_GET['reset'];
-  $query= 'SELECT username,password FROM account WHERE username = '.$usn.' AND password ='.$pass.'';
-  $data = mysqli_query($conn,$query);
+$user = $_POST['username'];
+$pass = $_POST['password'];
 
-  
-  if($data == true)
-  {
-    ?>
-    <form method="post" action="submit_new.php">
-    <input type="hidden" name="username" value="<?php echo $usn;?>">
-    <p>Enter New password</p>
-    <input type="password" name='password'>
-    <input type="submit" name="submit_password">
-    </form>
-    <?php
-  }
-}
+
+
+$query = "UPDATE `account` SET `password`='$pass' WHERE username = '$user'";
+
+$data = mysqli_query($conn, $query);
+  if ($data == true) {
+    $arr = [
+      'success' => true,
+      'message'=> "thanh cong",
+      'result'=> []
+    ];
+  }else{
+    $arr = [
+      'success' => false,
+      'message' => " khong thanh cong",
+      'result'=> []
+    ];
+  } 
+
+print_r(json_encode($arr));
 ?> 
