@@ -1,7 +1,6 @@
 <?php
  include "connect.php";
 $user = $_POST['username'];
-//$pass= md5($_POST['password']);
 $pass= $_POST['password'];
 // $roleid = $_POST['roleid'];
 
@@ -17,8 +16,6 @@ if($numrow >  0) {
 		'message'=> "Ten dang nhap da ton tai"
 	];
 }else{
-	$query = 'INSERT INTO `account`(`accountid`, `username`, `password`, `rolesid`,`name`,`address`,`phone`, `enabled`) VALUES (null,"'.$user.'","'.$pass.'",3,null,null,null,1)';
-
 	$data = mysqli_query($conn, $query);
 	if ($data == true) {
 		$arr = [
@@ -34,10 +31,6 @@ if($numrow >  0) {
 		];
 	}	
 }
-
-//insert
-
-
 print_r(json_encode($arr));
  
 ?>

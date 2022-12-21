@@ -2,9 +2,9 @@
 	include "connect.php";
 	$statusid = $_POST['statusid'];
 	if($statusid==0){
-		$query = 'SELECT orderdetails.orderid, orderdetails.id, bookingdate, name,address,phone, email, orderdetails.quantity, orderdetails.size, order.total, status.statusname FROM `order`, orderdetails, status WHERE order.orderid = orderdetails.orderid AND order.statusid = status.statusid   GROUP BY order.orderid ORDER BY status.statusid';
+		$query = 'SELECT orderdetails.orderid, orderdetails.id, bookingdate, name,address,phone, email, orderdetails.quantity, orderdetails.size, order.total, status.statusname,status.statusid  FROM `order`, orderdetails, status WHERE order.orderid = orderdetails.orderid AND order.statusid = status.statusid   GROUP BY order.orderid ORDER BY status.statusid';
 	}else{
-	    $query = 'SELECT orderdetails.orderid, orderdetails.id, bookingdate, name,address,phone, email, orderdetails.quantity, orderdetails.size, order.total, status.statusname FROM `order`, orderdetails, status WHERE order.orderid = orderdetails.orderid AND order.statusid = status.statusid and order.statusid= '.$statusid.'  GROUP BY order.orderid ORDER BY status.statusid';
+	    $query = 'SELECT orderdetails.orderid, orderdetails.id, bookingdate, name,address,phone, email, orderdetails.quantity, orderdetails.size, order.total, status.statusname,status.statusid  FROM `order`, orderdetails, status WHERE order.orderid = orderdetails.orderid AND order.statusid = status.statusid and order.statusid= '.$statusid.'  GROUP BY order.orderid ORDER BY status.statusid';
 	}
 	
 	$data = mysqli_query($conn, $query);
