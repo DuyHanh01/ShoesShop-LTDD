@@ -7,7 +7,7 @@ public class User {
     int rolesid;
     String name;
     String address;
-    String phone;
+    String email;
     byte enabled;
 
 
@@ -27,12 +27,12 @@ public class User {
         this.address = address;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public byte getEnabled() {
@@ -48,14 +48,14 @@ public class User {
     public User() {
     }
 
-    public User(Integer accountid, String username, String password, int rolesid, String name, String address, String phone, byte enabled) {
+    public User(Integer accountid, String username, String password, int rolesid, String name, String address, String email, byte enabled) {
         this.accountid = accountid;
         this.username = username;
         this.password = password;
         this.rolesid = rolesid;
         this.name = name;
         this.address = address;
-        this.phone = phone;
+        this.email = email;
         this.enabled = enabled;
     }
 

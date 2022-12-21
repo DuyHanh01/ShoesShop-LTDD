@@ -25,7 +25,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ThongTinKhachHangActivity extends AppCompatActivity {
-    EditText edtPhone, edtAddress,edtName;
+    EditText edtEmail, edtAddress,edtName;
     Button btxacnhan,bttrove;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ApiService apiBanGiay;
@@ -78,18 +78,18 @@ public class ThongTinKhachHangActivity extends AppCompatActivity {
     private void EditInFor() {
         String strname = edtName.getText().toString().trim();
         String straddress = edtAddress.getText().toString().trim();
-        String strphone = edtPhone.getText().toString().trim();
+        String strEmail = edtEmail.getText().toString().trim();
         if(TextUtils.isEmpty(strname)){
             Toast.makeText(getApplicationContext(),"Bạn chưa nhập họ tên", Toast.LENGTH_LONG).show();
         }
-        else if(TextUtils.isEmpty(strphone)){
-            Toast.makeText(getApplicationContext(),"Bạn chưa nhập số điện thoại", Toast.LENGTH_LONG).show();
+        else if(TextUtils.isEmpty(strEmail)){
+            Toast.makeText(getApplicationContext(),"Bạn chưa nhập email", Toast.LENGTH_LONG).show();
         }
         else if(TextUtils.isEmpty(straddress)){
             Toast.makeText(getApplicationContext(),"Bạn chưa nhập địa chỉ", Toast.LENGTH_LONG).show();
         }
         else {
-            compositeDisposable.add(apiBanGiay.AddInfor(username,strname,straddress,strphone).subscribeOn(Schedulers.io())
+            compositeDisposable.add(apiBanGiay.UpdateInfor(username,strname,straddress,strEmail).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             userModel -> {
@@ -119,7 +119,7 @@ public class ThongTinKhachHangActivity extends AppCompatActivity {
 
     private void initUi(){
         edtName=findViewById(R.id.edittexttenkhachhang);
-        edtPhone=findViewById(R.id.edittextsodienthoai);
+        edtEmail=findViewById(R.id.editEmail);
         edtAddress=findViewById(R.id.edittexdiachi);
         btxacnhan=findViewById(R.id.buttonxacnhan);
         bttrove=findViewById(R.id.buttontrove);
@@ -130,7 +130,7 @@ public class ThongTinKhachHangActivity extends AppCompatActivity {
         if (Utils.user_current.getUsername() != null && Utils.user_current.getPassword() != null ){
             edtAddress.setText(Utils.user_current.getAddress());
             edtName.setText(Utils.user_current.getName());
-            edtPhone.setText(Utils.user_current.getPhone());
+            edtEmail.setText(Utils.user_current.getEmail());
         }
     }
 

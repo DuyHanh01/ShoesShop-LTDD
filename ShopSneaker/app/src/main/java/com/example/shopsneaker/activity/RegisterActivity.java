@@ -3,17 +3,24 @@ package com.example.shopsneaker.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edtUserName;
     EditText edtPassWord, repass;
     Button btnRegister;
+    ProgressBar progressBar;
     ApiService apiBanGiay;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -37,19 +45,17 @@ public class RegisterActivity extends AppCompatActivity {
         initControll();
     }
 
+    public static boolean isValidPhone(String phone)
+    {
+        String expression = "^([0-9\\+]|\\(\\d{1,3}\\))[0-9\\-\\. ]{3,15}$";
+        CharSequence inputString = phone;
+        Pattern pattern = Pattern.compile(expression);
+        Matcher matcher = pattern.matcher(inputString);
+        return matcher.matches();
+    }
 
     private void initControll() {
         btnRegister.setOnClickListener(v -> ReGisterAccount());
-    }
-
-    private boolean isValidEmailId(String email){
-
-        return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
-                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
-                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
-                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
     }
 
     public static boolean isValidPassword(String password) {
@@ -62,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         String strpass = edtPassWord.getText().toString().trim();
         String strrepass = repass.getText().toString().trim();
         if(TextUtils.isEmpty(struser)){
-            Toast.makeText(getApplicationContext(),"Bạn chưa nhập Email", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Bạn chưa nhập Phone", Toast.LENGTH_LONG).show();
         }
         else if(TextUtils.isEmpty(strpass)){
             Toast.makeText(getApplicationContext(),"Bạn chưa nhập mật khẩu", Toast.LENGTH_LONG).show();
@@ -70,8 +76,8 @@ public class RegisterActivity extends AppCompatActivity {
         else if(TextUtils.isEmpty(strrepass)){
             Toast.makeText(getApplicationContext(),"Bạn chưa xác nhận mật khẩu", Toast.LENGTH_LONG).show();
         }
-        else if(!isValidEmailId(struser)){
-            Toast.makeText(getApplicationContext(), "Email không hợp lệ!", Toast.LENGTH_SHORT).show();
+        else if(!isValidPhone(struser)){
+            Toast.makeText(getApplicationContext(), "Phone không hợp lệ!", Toast.LENGTH_SHORT).show();
         }
         else if(!isValidPassword(strpass)){
             Toast.makeText(getApplicationContext(), "Mật khẩu phải có 8-20 kí tự gồm chữ hoa,chữ thường, số, kí tự đặc biệt", Toast.LENGTH_SHORT).show();
@@ -84,17 +90,52 @@ public class RegisterActivity extends AppCompatActivity {
                         .subscribe(
                                 userModel -> {
                                     if(userModel.isSuccess()){
-                                        Intent intent = new Intent(getApplicationContext(), AddInforActivity.class);
-                                        intent.putExtra("user", struser);
-                                        startActivity(intent);
-                                        finish();
+                                        progressBar.setVisibility(View.VISIBLE);
+                                        btnRegister.setVisibility(View.INVISIBLE);
+
+                                        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                                                "+84" + edtUserName.getText().toString(),
+                                                60,
+                                                TimeUnit.SECONDS,
+                                                RegisterActivity.this,
+                                                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                                    @Override
+                                                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+
+                                                        progressBar.setVisibility(View.GONE);
+                                                        btnRegister.setVisibility(View.VISIBLE);
+                                                    }
+
+                                                    @Override
+                                                    public void onVerificationFailed(@NonNull FirebaseException e) {
+
+                                                        progressBar.setVisibility(View.GONE);
+                                                        btnRegister.setVisibility(View.VISIBLE);
+                                                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                    @Override
+                                                    public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+
+                                                        progressBar.setVisibility(View.GONE);
+                                                        btnRegister.setVisibility(View.VISIBLE);
+
+                                                        Intent intent=new Intent(getApplicationContext(),ActivityOTP.class);
+                                                        intent.putExtra("mobile",edtUserName.getText().toString());
+                                                        intent.putExtra("backendotp",backendotp);
+                                                        intent.putExtra("value", 2);
+                                                        intent.putExtra("user", struser);
+                                                        intent.putExtra("pass", pass);
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        startActivity(intent);
+                                                    }
+                                                }
+                                        );
                                     }else {
                                         Toast.makeText(getApplicationContext(),userModel.getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 },
-                                throwable -> {
-                                    Toast.makeText(getApplicationContext(),throwable.getMessage(), Toast.LENGTH_LONG).show();
-                                }
+                                throwable -> Toast.makeText(getApplicationContext(),throwable.getMessage(), Toast.LENGTH_LONG).show()
                         ));
             }else {
                 Toast.makeText(getApplicationContext(),"Mật khẩu không khớp", Toast.LENGTH_LONG).show();
@@ -107,6 +148,7 @@ public class RegisterActivity extends AppCompatActivity {
         edtUserName = findViewById(R.id.txtUserDK);
         edtPassWord = findViewById(R.id.txtPassDK);
         repass = findViewById(R.id.txtrePassDK);
+        progressBar = findViewById(R.id.progressbarRegister);
         btnRegister = findViewById(R.id.btnDangkiDK);
     }
 
@@ -115,6 +157,5 @@ public class RegisterActivity extends AppCompatActivity {
         compositeDisposable.clear();
         super.onDestroy();
     }
-
 
 }

@@ -1,11 +1,15 @@
 package com.example.shopsneaker.adapter;
 
+import com.example.shopsneaker.model.User;
+
+import java.util.List;
+
 public class AccountAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<AccountAdapter.MyViewHolder> implements android.widget.Filterable{
     android.content.Context context;
-    java.util.List<com.example.shopsneaker.model.User> array;
-    java.util.List<com.example.shopsneaker.model.User> arrayOld;
+    List<User> array;
+    List<User> arrayOld;
 
-    public AccountAdapter(android.content.Context context, java.util.List<com.example.shopsneaker.model.User> array) {
+    public AccountAdapter(android.content.Context context, List<User> array) {
         this.context = context;
         this.array = array;
         arrayOld=array;
@@ -35,7 +39,7 @@ public class AccountAdapter extends androidx.recyclerview.widget.RecyclerView.Ad
 
     @Override
     public void onBindViewHolder(@androidx.annotation.NonNull com.example.shopsneaker.adapter.AccountAdapter.MyViewHolder holder, int position) {
-        com.example.shopsneaker.model.User user = array.get(position);
+        User user = array.get(position);
         holder.txtID.setText("ID: "+user.getAccountid().toString());
         holder.txtUserName.setText("Tên đăng nhập: "+user.getUsername());
         String s= "Quyền: ";
@@ -43,7 +47,7 @@ public class AccountAdapter extends androidx.recyclerview.widget.RecyclerView.Ad
 
         holder.txtName.setText("Tên: "+user.getName());
         holder.txtAddres.setText("Địa chỉ: "+user.getAddress());
-        holder.txtPhone.setText("Điện thoại: "+user.getPhone());
+        holder.txtPhone.setText("Email: "+user.getEmail());
         if (user.getEnabled()==1){
             holder.txtTrangThai.setText("Trạng thái: Hoạt động");
             holder.txtTrangThai.setTextColor(android.graphics.Color.rgb(0,255,0));

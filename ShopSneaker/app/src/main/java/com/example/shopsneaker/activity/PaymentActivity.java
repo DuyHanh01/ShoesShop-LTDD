@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shopsneaker.R;
@@ -245,7 +246,7 @@ public class PaymentActivity extends AppCompatActivity {
                 Log.d("test", new Gson().toJson(Utils.manggiohang));
                 int AccountId = Utils.user_current.getAccountid();
                 //
-                androidx.appcompat.app.AlertDialog.Builder b = new androidx.appcompat.app.AlertDialog.Builder(this);
+                AlertDialog.Builder b = new AlertDialog.Builder(this);
                 //Thiết lập tiêu đề
                 b.setTitle("Xác nhận");
                 b.setMessage("Bạn có đồng ý đặt hàng không?");
@@ -339,17 +340,17 @@ public class PaymentActivity extends AppCompatActivity {
         txtEmail.setText(Utils.user_current.getUsername());
         txtAddress.setText(Utils.user_current.getAddress());
         txtName.setText(Utils.user_current.getName());
-        txtPhone.setText(Utils.user_current.getPhone());
+        txtPhone.setText(Utils.user_current.getEmail());
         btnMomo = findViewById(com.example.shopsneaker.R.id.buttonmomo);
     }
 
     protected void onResume () {
         super.onResume();
         if (Utils.user_current.getUsername() != null && Utils.user_current.getPassword() != null ){
-            txtEmail.setText(Utils.user_current.getUsername());
+            txtEmail.setText(Utils.user_current.getEmail());
             txtAddress.setText(Utils.user_current.getAddress());
             txtName.setText(Utils.user_current.getName());
-            txtPhone.setText(Utils.user_current.getPhone());
+            txtPhone.setText(Utils.user_current.getUsername());
         }
     }
 

@@ -6,7 +6,7 @@
     android:background="@color/background"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.updateSizeActivity">
+    tools:context=".activity.UpdateSizeActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarAddSize"
         app:layout_constraintTop_toTopOf="parent"

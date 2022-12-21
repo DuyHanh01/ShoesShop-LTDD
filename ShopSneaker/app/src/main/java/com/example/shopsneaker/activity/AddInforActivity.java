@@ -13,6 +13,7 @@ import com.example.shopsneaker.R;
 import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
+import java.util.regex.Pattern;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -20,10 +21,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AddInforActivity extends AppCompatActivity {
 
-    EditText edtName, edtAddress, edtPhone;
+    EditText edtName, edtAddress, edtEmail;
     Button btnConfirm;
-    ApiService apiBanGiay;
-    String username;
+    ApiService apiService;
+    String username, password;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
@@ -35,6 +36,16 @@ public class AddInforActivity extends AppCompatActivity {
 
     }
 
+    private boolean isValidEmailId(String email){
+
+        return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
+    }
+
     private void initView() {
         btnConfirm.setOnClickListener(v -> ReGisterInfor());
     }
@@ -42,19 +53,21 @@ public class AddInforActivity extends AppCompatActivity {
     private void ReGisterInfor() {
         String strname = edtName.getText().toString().trim();
         String straddress = edtAddress.getText().toString().trim();
-        String strphone = edtPhone.getText().toString().trim();
+        String strEmail = edtEmail.getText().toString().trim();
         if(TextUtils.isEmpty(strname)){
             Toast.makeText(getApplicationContext(),"Bạn chưa nhập họ tên", Toast.LENGTH_LONG).show();
         }
-        else if(TextUtils.isEmpty(strphone)){
-            Toast.makeText(getApplicationContext(),"Bạn chưa nhập số điện thoại", Toast.LENGTH_LONG).show();
+        else if(TextUtils.isEmpty(strEmail)){
+            Toast.makeText(getApplicationContext(),"Bạn chưa nhập email", Toast.LENGTH_LONG).show();
         }
-        else if(TextUtils.isEmpty(straddress)){
-            Toast.makeText(getApplicationContext(),"Bạn chưa nhập địa chỉ", Toast.LENGTH_LONG).show();
+        if(TextUtils.isEmpty(strEmail)){
+            Toast.makeText(getApplicationContext(),"Bạn chưa nhập email", Toast.LENGTH_LONG).show();
+        }
+        else if(!isValidEmailId(strEmail)){
+            Toast.makeText(getApplicationContext(),"Email không đúng", Toast.LENGTH_LONG).show();
         }
         else {
-
-                compositeDisposable.add(apiBanGiay.AddInfor(username,strname,straddress,strphone).subscribeOn(Schedulers.io())
+                compositeDisposable.add(apiService.AddInfor(username,password, strname,straddress,strEmail).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 userModel -> {
@@ -75,10 +88,11 @@ public class AddInforActivity extends AppCompatActivity {
 
     private void initControll() {
         username = getIntent().getStringExtra("user");
-        apiBanGiay = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
+        password = getIntent().getStringExtra("pass");
+        apiService = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiService.class);
         edtName = findViewById(R.id.edtname);
         edtAddress = findViewById(R.id.edtaddress);
-        edtPhone = findViewById(R.id.edtphone);
+        edtEmail = findViewById(R.id.edtemail);
         btnConfirm = findViewById(R.id.buttonxacnhan);
     }
 

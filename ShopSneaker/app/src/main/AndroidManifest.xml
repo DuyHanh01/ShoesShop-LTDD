@@ -29,6 +29,12 @@
             android:name=".activity.AccountManagerActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.ActivityOTP"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ActivityForgotPassword"
+            android:exported="false" />
+        <activity
             android:name=".activity.MarketPlaceActivity"
             android:exported="false" />
         <activity
@@ -62,7 +68,7 @@
             android:name=".activity.QLSPActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.updateSizeActivity"
+            android:name=".activity.UpdateSizeActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MarketManagerActivity"

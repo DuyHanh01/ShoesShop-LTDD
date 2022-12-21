@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.shopsneaker.R;
 import com.example.shopsneaker.activity.FullImageView;
-import com.example.shopsneaker.activity.updateSizeActivity;
+import com.example.shopsneaker.activity.UpdateSizeActivity;
 import com.example.shopsneaker.model.SizeManagment;
 import com.example.shopsneaker.utils.Utils;
 import com.example.shopsneaker.utils.checkconnect;
@@ -95,7 +95,7 @@ public class SizeManagmentAdapter extends RecyclerView.Adapter<SizeManagmentAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, updateSizeActivity.class);
+                    Intent intent = new Intent(context, UpdateSizeActivity.class);
                     intent.putExtra("themsize", array.get(getPosition()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     checkconnect.ShowToast_Short(context,array.get(getPosition()).getName());

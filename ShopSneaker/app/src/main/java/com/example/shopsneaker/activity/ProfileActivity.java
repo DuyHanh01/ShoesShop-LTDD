@@ -3,6 +3,7 @@ package com.example.shopsneaker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +24,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class ProfileActivity extends AppCompatActivity {
-    TextView txtUserprof, txtgiohang, txtdonhang,txtPhone,txtName,txtAddress,txtEdit;
+    TextView txtEmail, txtgiohang, txtdonhang,txtPhone,txtName,txtAddress,txtEdit;
     AppCompatButton btnChangePass, btnLogout;
-    android.widget.LinearLayout  linearLayoutGioHang, linearLayoutDonHang, linearLayoutManagement,linearLayout_AddPost;
+    LinearLayout linearLayoutGioHang, linearLayoutDonHang, linearLayoutManagement,linearLayout_AddPost;
     Toolbar toolbarProfile;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ApiService apiBanGiay;
@@ -77,21 +78,17 @@ public class ProfileActivity extends AppCompatActivity {
             //Thiết lập tiêu đề
             b.setTitle("Thông báo");
             b.setMessage("Bạn chắc chắn muốn đăng xuất ?");
-            b.setPositiveButton("Đăng xuất", new android.content.DialogInterface.OnClickListener() {
-                public void onClick(android.content.DialogInterface dialog, int id) {
-                    Paper.book().delete("user");
-                    Utils.user_current.setUsername(null);
-                    Utils.user_current.setPassword(null);
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+            b.setPositiveButton("Đăng xuất", (dialog, id) -> {
+                Paper.book().delete("user");
+                Utils.user_current.setUsername(null);
+                Utils.user_current.setPassword(null);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
             });
-            b.setNegativeButton("Ở lại", new android.content.DialogInterface.OnClickListener() {
-                public void onClick(android.content.DialogInterface dialog, int id) {
+            b.setNegativeButton("Ở lại", (dialog, id) -> {
 
-                    return;
-                }
+                return;
             });//Tạo dialog
             androidx.appcompat.app.AlertDialog al = b.create();//Hiển thị
             al.show();
@@ -124,7 +121,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void initView() {
         txtEdit=findViewById(R.id.textEdit);
-        txtUserprof = findViewById(R.id.txtEmail);
+        txtEmail = findViewById(R.id.txtEmail);
         txtdonhang= findViewById(R.id.txtDonHang);
         txtgiohang = findViewById(R.id.txtGioHang);
         btnChangePass = findViewById(R.id.btnChangePass);
@@ -144,8 +141,8 @@ public class ProfileActivity extends AppCompatActivity {
         if (Utils.user_current.getUsername() != null && Utils.user_current.getPassword() != null ){
             txtAddress.setText(Utils.user_current.getAddress());
             txtName.setText(Utils.user_current.getName());
-            txtPhone.setText(Utils.user_current.getPhone());
-            txtUserprof.setText(Utils.user_current.getUsername());
+            txtPhone.setText(Utils.user_current.getUsername());
+            txtEmail.setText(Utils.user_current.getEmail());
         }
     }
 

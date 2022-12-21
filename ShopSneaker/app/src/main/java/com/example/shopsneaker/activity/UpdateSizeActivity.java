@@ -22,7 +22,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class updateSizeActivity extends AppCompatActivity {
+public class UpdateSizeActivity extends AppCompatActivity {
     Toolbar toolbarUpSize;
     TextView txtProductName;
     ImageView imgProduct;

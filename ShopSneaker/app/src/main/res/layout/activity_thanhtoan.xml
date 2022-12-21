@@ -45,9 +45,9 @@
                 android:background="@drawable/rounded_edittext"
                 android:layout_margin="15dp"
                 android:padding="10dp"
-                android:id="@+id/edittextsodienthoai"
+                android:id="@+id/editEmail"
                 android:inputType="phone"
-                android:hint="Sô điện thoại"
+                android:hint="Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>

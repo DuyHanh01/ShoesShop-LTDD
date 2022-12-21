@@ -108,7 +108,6 @@ public interface ApiService {
             @Field("password") String password
     );
 
-
     @retrofit2.http.POST("loginaccount.php")
     @FormUrlEncoded
     io.reactivex.rxjava3.core.Observable<com.example.shopsneaker.model.UserModel> LoGin(
@@ -120,9 +119,19 @@ public interface ApiService {
     @FormUrlEncoded
     io.reactivex.rxjava3.core.Observable<com.example.shopsneaker.model.UserModel> AddInfor(
             @Field("username") String username,
+            @Field("pass") String password,
             @Field("name") String strname,
             @Field("address") String straddress,
-            @Field("phone") String strphone
+            @Field("email") String stremail
+    );
+
+    @retrofit2.http.POST("updateInfor.php")
+    @FormUrlEncoded
+    io.reactivex.rxjava3.core.Observable<com.example.shopsneaker.model.UserModel> UpdateInfor(
+            @Field("username") String username,
+            @Field("name") String strname,
+            @Field("address") String straddress,
+            @Field("email") String stremail
     );
 
     @retrofit2.http.POST("getAccount.php")

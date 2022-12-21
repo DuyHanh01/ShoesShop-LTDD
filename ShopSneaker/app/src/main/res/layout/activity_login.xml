@@ -29,7 +29,7 @@
         android:id="@+id/txtUsername"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Email"
+        android:hint="Phone"
         android:padding="10dp"
         android:inputType="textEmailAddress"
         android:imeOptions="actionNext"
@@ -53,6 +53,7 @@
         android:layout_marginTop="10dp"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/txtForgotPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Quên mật khẩu?"

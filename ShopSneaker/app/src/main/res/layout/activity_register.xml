@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    tools:context=".activity.RegisterActivity">
     <TextView
         android:textSize="18dp"
         android:textColor="@color/black"
@@ -27,7 +29,6 @@
         android:elevation="4dp"
         android:orientation="vertical"
         android:padding="20dp">
-
     </RelativeLayout>
 
     <EditText
@@ -36,7 +37,7 @@
         android:id="@+id/txtUserDK"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Email"
+        android:hint="Phone"
         android:inputType="textEmailAddress"
         android:imeOptions="actionNext"
         android:maxLength="100"
@@ -66,14 +67,26 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/black"/>
 
-    <Button
-        android:textColor="@color/white"
-        android:id="@+id/btnDangkiDK"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@color/colorPrimary"
-        android:text="Đăng ký" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textColor="@color/white"
+            android:id="@+id/btnDangkiDK"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimary"
+            android:text="Đăng ký" />
+        <ProgressBar
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:id="@+id/progressbarRegister"/>
+    </FrameLayout>
+
+
 
     <LinearLayout
         android:id="@+id/layout_sign_up"

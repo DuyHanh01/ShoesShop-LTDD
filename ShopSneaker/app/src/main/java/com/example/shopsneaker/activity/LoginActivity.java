@@ -24,7 +24,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
-    TextView btnRegister;
+    TextView btnRegister, txtForgotPass;
     EditText edtusername, edtpassword;
     boolean isLogin = false;
     ApiService apiBanGiay;
@@ -59,6 +59,10 @@ public class LoginActivity extends AppCompatActivity {
                 Paper.book().write("password", strpass);
                 Login(struser, strpass);
             }
+        });
+        txtForgotPass.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), ActivityForgotPassword.class);
+            startActivity(intent);
         });
     }
 
@@ -105,14 +109,14 @@ public class LoginActivity extends AppCompatActivity {
                                     ///finish();
                                 }else{
                                     if(s.equals(Utils.user_current.getUsername()) || Utils.user_current.getRolesid()==2){
-                                        Toast.makeText(getApplicationContext(), "Welcome the king of Europe", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Welcome to shop sneaker", Toast.LENGTH_LONG).show();
                                         Intent intent;
                                         intent = new Intent(getApplicationContext(), AdminActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
                                     else{
-                                        Toast.makeText(getApplicationContext(), "Welcome the king of Europe", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Welcome to shop sneaker", Toast.LENGTH_LONG).show();
                                         Intent intent;
                                         intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
@@ -120,13 +124,12 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 }
 
-
                             } else {
                                 Toast.makeText(getApplicationContext(), "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_LONG).show();
                             }
                         },
                         throwable -> {
-                            Toast.makeText(getApplicationContext(), "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Không kết nối được server", Toast.LENGTH_LONG).show();
                         }
                 ));
     }
@@ -138,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnDangnhap);
         edtusername = findViewById(R.id.txtUsername);
         edtpassword = findViewById(R.id.txtPass);
+        txtForgotPass = findViewById(R.id.txtForgotPass);
 
         if (Paper.book().read("user") != null) {
             edtusername.setText(Paper.book().read("username"));
