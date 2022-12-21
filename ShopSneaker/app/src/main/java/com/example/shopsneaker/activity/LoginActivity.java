@@ -48,9 +48,9 @@ public class LoginActivity extends AppCompatActivity {
             String strpass = Utils.getMD5( edtpassword.getText().toString().trim());
             if (TextUtils.isEmpty(struser)) {
                 Toast.makeText(getApplicationContext(), "Bạn chưa nhập tên đang nhập", Toast.LENGTH_LONG).show();
-            } else if (TextUtils.isEmpty(strpass)) {
+            } else if (strpass.equals("d41d8cd98f00b204e9800998ecf8427e")) {
                 Toast.makeText(getApplicationContext(), "Bạn chưa nhập mật khẩu", Toast.LENGTH_LONG).show();
-            } else if (TextUtils.isEmpty(strpass)) {
+            } else if (strpass.equals("d41d8cd98f00b204e9800998ecf8427e")) {
                 Toast.makeText(getApplicationContext(), "Bạn chưa nhập mật khẩu", Toast.LENGTH_LONG).show();
             }
             else {

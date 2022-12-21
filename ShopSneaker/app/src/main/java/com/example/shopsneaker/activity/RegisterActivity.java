@@ -17,7 +17,6 @@ import com.example.shopsneaker.retrofit.ApiService;
 import com.example.shopsneaker.retrofit.RetrofitClient;
 import com.example.shopsneaker.utils.Utils;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
@@ -100,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                 RegisterActivity.this,
                                                 new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                                                     @Override
-                                                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                                    public void onVerificationCompleted(@NonNull com.google.firebase.auth.PhoneAuthCredential phoneAuthCredential) {
 
                                                         progressBar.setVisibility(View.GONE);
                                                         btnRegister.setVisibility(View.VISIBLE);
